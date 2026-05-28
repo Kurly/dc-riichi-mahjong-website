@@ -1,0 +1,1 @@
+# dc-riichi-mahjong-website
