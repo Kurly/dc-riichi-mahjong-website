@@ -5,161 +5,228 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DC Riichi Mahjong</title>
     <style>
+        /* Base Styling */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
             color: #333;
-            background-color: #f9f9f9;
+            background-color: #fafafa;
         }
-        header {
-            background: #d32f2f;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
+
+        /* Claude.com Style Navigation Bar */
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            padding: 1rem 3rem;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        header h1 {
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
             margin: 0;
-            font-size: 2.5rem;
+            display: flex;
+            gap: 2rem;
         }
-        nav {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 0.5rem;
+
+        .nav-item {
+            position: relative;
+            padding: 0.5rem 0;
         }
-        nav a {
-            color: #fff;
+
+        .nav-item > a {
             text-decoration: none;
-            margin: 0 10px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-item > a:hover {
+            color: #000;
+        }
+
+        /* Dropdown Menu Logic */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            min-width: 220px;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+        }
+
+        /* Reveal dropdown on hover */
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            color: #555;
             font-size: 0.9rem;
+            transition: background-color 0.2s, color 0.2s;
         }
-        nav a:hover {
-            text-decoration: underline;
+
+        .dropdown-menu a:hover {
+            background-color: #f5f5f5;
+            color: #000;
         }
+
+        /* Content Styling */
         .hero {
-            background: #fff;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
-            border-bottom: 1px solid #ddd;
+            background-color: #fff;
+            border-bottom: 1px solid #eaeaea;
         }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
         .hero p {
-            max-width: 800px;
-            margin: 0 auto 1.5rem auto;
-            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            line-height: 1.6;
+            color: #555;
         }
-        .btn {
+
+        .cta-button {
             display: inline-block;
-            background: #d32f2f;
+            background-color: #000;
             color: #fff;
-            padding: 10px 20px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+            font-weight: 600;
+            transition: background-color 0.2s;
         }
-        .btn:hover {
-            background: #b71c1c;
+
+        .cta-button:hover {
+            background-color: #333;
         }
+
         .container {
             max-width: 900px;
-            margin: 2rem auto;
+            margin: 3rem auto;
             padding: 0 2rem;
         }
-        .events h2 {
-            text-align: center;
-            color: #d32f2f;
-        }
+
         .event-card {
-            background: #fff;
-            border: 1px solid #ddd;
+            background-color: #fff;
+            border: 1px solid #eaeaea;
             padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
+
         .event-card h3 {
             margin-top: 0;
-            color: #333;
+            color: #111;
         }
-        .event-card p {
-            margin: 0.5rem 0 0 0;
+
+        .event-details {
             color: #666;
-        }
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1.5rem 0;
-            margin-top: 2rem;
-        }
-        footer a {
-            color: #fff;
-            margin: 0 10px;
-            text-decoration: none;
+            font-size: 0.95rem;
+            margin: 0.25rem 0;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>DC Riichi Mahjong</h1>
-    </header>
+    <nav class="navbar">
+        <a href="#" class="logo">DC Riichi Mahjong</a>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="#">Home</a></li>
+            
+            <li class="nav-item">
+                <a href="#">Play In Person ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Weekly Meetups</a></li>
+                    <li><a href="#">Tournaments</a></li>
+                    <li><a href="#">Conventions</a></li>
+                    <li><a href="#">Find a Club Near You</a></li>
+                </ul>
+            </li>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#play-in-person">Play In Person</a>
-        <a href="#play-online">Play Online</a>
-        <a href="#learn">Learn To Play</a>
-        <a href="#equipment">Equipment</a>
-        <a href="#membership">Membership</a>
+            <li class="nav-item"><a href="#">Play Online</a></li>
+
+            <li class="nav-item">
+                <a href="#">Learn To Play ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Rules</a></li>
+                    <li><a href="#">Strategy</a></li>
+                    <li><a href="#">Equipment</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item"><a href="#">Membership</a></li>
+        </ul>
     </nav>
 
-    <section id="home" class="hero">
-        <h2>Welcome to the Club!</h2>
-        <p>DC Riichi Mahjong is a vibrant social club dedicated to fostering the appreciation and enjoyment of Riichi Mahjong, a popular strategic tile-based game hailing from Japan.</p>
-        <p>Known for our friendly atmosphere and diverse community, our members range from beginners to experienced players, all brought together by their shared love of this captivating game.</p>
-        <a href="#" class="btn">Join Our Discord</a>
-    </section>
+    <header class="hero">
+        <h1>Welcome to the Club!</h1>
+        <p>DC Riichi Mahjong is a vibrant social club dedicated to fostering the appreciation and enjoyment of Riichi Mahjong, a popular strategic tile-based game hailing from Japan. Known for our friendly atmosphere and diverse community, our members range from beginners to experienced players, all brought together by their shared love of this captivating game.</p>
+        <a href="#" class="cta-button">Join Our Discord</a>
+    </header>
 
     <main class="container">
-        <section id="events" class="events">
-            <h2>Upcoming Events</h2>
-            
-            <div class="event-card">
-                <h3>DC Riichi Mahjong Weekly Meet Up</h3>
-                <p><strong>Date & Time:</strong> May 31, 2026, 9:00 AM</p>
-                <p><strong>Location:</strong> Whole Foods Market, 1635 Boro Pl, McLean, VA 22102</p>
-            </div>
+        <h2>Upcoming Events</h2>
 
-            <div class="event-card">
-                <h3>MLK Library Mahjong Mondays</h3>
-                <p><strong>Date & Time:</strong> Jun 1, 2026, 3:00 PM</p>
-                <p><strong>Location:</strong> MLK Library</p>
-            </div>
-
-            <div class="event-card">
-                <h3>MLK Library Mahjong Tuesdays</h3>
-                <p><strong>Date & Time:</strong> Jun 2, 2026, 3:00 PM</p>
-                <p><strong>Location:</strong> MLK Library</p>
-            </div>
-
-            <div class="event-card">
-                <h3>Megamahj</h3>
-                <p><strong>Date & Time:</strong> Aug 8, 2026, 6:00 AM</p>
-                <p><strong>Location:</strong> Dock 5 @ Union Market, DC</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 DC Riichi Mahjong. All rights reserved.</p>
-        <div>
-            <a href="#">Email</a> | 
-            <a href="#">Discord</a> | 
-            <a href="#">Instagram</a>
+        <div class="event-card">
+            <h3>DC Riichi Mahjong Weekly Meet Up</h3>
+            <p class="event-details"><strong>Date & Time:</strong> May 31, 2026, 9:00 AM</p>
+            <p class="event-details"><strong>Location:</strong> Whole Foods Market, 1635 Boro Pl, McLean, VA 22102</p>
         </div>
-    </footer>
+
+        <div class="event-card">
+            <h3>MLK Library Mahjong Mondays</h3>
+            <p class="event-details"><strong>Date & Time:</strong> Jun 1, 2026, 3:00 PM</p>
+            <p class="event-details"><strong>Location:</strong> MLK Library</p>
+        </div>
+
+        <div class="event-card">
+            <h3>MLK Library Mahjong Tuesdays</h3>
+            <p class="event-details"><strong>Date & Time:</strong> Jun 2, 2026, 3:00 PM</p>
+            <p class="event-details"><strong>Location:</strong> MLK Library</p>
+        </div>
+
+        <div class="event-card">
+            <h3>Megamahj</h3>
+            <p class="event-details"><strong>Date & Time:</strong> Aug 8, 2026, 6:00 AM</p>
+            <p class="event-details"><strong>Location:</strong> Dock 5 @ Union Market, DC</p>
+        </div>
+    </main>
 
 </body>
 </html>
