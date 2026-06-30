@@ -419,15 +419,15 @@
     </footer>
 
     <script>
-        // --- PASTE YOUR API KEY AND CALENDAR ID HERE ---
+        // --- YOUR API KEY AND CALENDAR ID ---
         const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
-        const CALENDAR_ID = 'https://calendar.google.com/calendar/u/0?cid=MzBmOGYyMDA0ZmEzMzg5MTVkZDQ3OThiNDMwN2Y4ZWM0OGY5YjE1MGVlM2Q1ZmJjMTBiMzUwNmI1MGU2Mjk3OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t-9OW99CgdJc'; 
-        // -----------------------------------------------
+        const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com'; 
+        // ------------------------------------
 
         async function fetchEvents() {
             const container = document.getElementById('events-container');
             
-            if (API_KEY === 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc') {
+            if (API_KEY === 'YOUR_API_KEY_HERE') {
                 container.innerHTML = '<p><em>Please enter your Google API Key in the HTML code to view upcoming events.</em></p>';
                 return;
             }
