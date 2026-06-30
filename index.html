@@ -34,9 +34,18 @@
             z-index: 1000;
         }
 
-        .logo strong {
-            font-size: 1.5rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
             color: var(--text-dark);
+            font-size: 1.5rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         .nav-links {
@@ -75,7 +84,7 @@
             min-width: 220px;
             list-style: none;
             padding: 0;
-            margin: 0; /* Hover gap removed */
+            margin: 0; 
             border-radius: 0 0 8px 8px;
             overflow: hidden;
         }
@@ -110,7 +119,7 @@
             border-radius: 12px;
             margin-bottom: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            scroll-margin-top: 80px; /* Accounts for sticky nav */
+            scroll-margin-top: 80px; 
         }
 
         .hero {
@@ -139,6 +148,22 @@
             color: var(--primary-pink);
         }
 
+        /* Image Styling */
+        .section-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
         /* Buttons */
         .btn {
             display: inline-block;
@@ -162,6 +187,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            align-items: center;
         }
 
         .events-grid {
@@ -211,7 +237,10 @@
 <body>
 
     <nav>
-        <div class="logo"><strong>DC Riichi Mahjong</strong></div>
+        <a href="#home" class="logo">
+            <img src="images/dcbiglogo.png" alt="DC Riichi Mahjong Logo">
+            <strong>DC Riichi Mahjong</strong>
+        </a>
         <ul class="nav-links">
             <li class="nav-item"><a href="#home">Home</a></li>
             <li class="nav-item">
@@ -277,6 +306,15 @@
                     <p><strong>Location:</strong> <a href="https://g.co/kgs/4kPpRNV" target="_blank">Whole Foods Market<br>1635 Boro Pl, McLean, VA 22102</a></p>
                     <p><em>There are several $5 all day parking garages within 1 block of the Whole Foods. It is also just a 5 minute walk from the Greensboro Silver Line Metro stop.</em></p>
                 </div>
+                <div style="text-align: center;">
+                    <img src="images/inperson1.jpg" alt="Weekly Meetups" class="section-img">
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 3rem;">
+                <div style="text-align: center;">
+                    <img src="images/inperson2.jpg" alt="Tournaments" class="section-img">
+                </div>
                 <div class="card" id="tournaments">
                     <h3>Tournaments</h3>
                     <p>Every spring we host the DC Riichi Mahjong Open (DCO), a two-day tournament open to players of all skill levels.</p>
@@ -291,11 +329,20 @@
                 </div>
             </div>
 
-            <div class="grid-2" style="margin-top: 2rem;">
+            <div class="grid-2" style="margin-top: 3rem;">
                 <div id="conventions">
                     <h3>Conventions</h3>
                     <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a>.</p>
                     <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a>, <a href="https://animeusa.org/" target="_blank">Anime USA</a>, <a href="https://super.magfest.org/" target="_blank">Super MAGFest</a>.</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="images/inperson3.jpg" alt="Conventions" class="section-img">
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 3rem;">
+                <div style="text-align: center;">
+                    <img src="images/inperson4.png" alt="Find a Club" class="section-img">
                 </div>
                 <div id="find-club">
                     <h3>Find a Club Near You</h3>
@@ -308,11 +355,13 @@
         <div id="online" class="page-section" style="text-align: center;">
             <h2>Play Online Whenever You Want!</h2>
             <p>Riichi Mahjong has several free online clients that let you play at any moment. Here are a few that we recommend:</p>
-            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; margin-bottom: 2rem;">
                 <a href="https://mahjongsoul.yo-star.com/" target="_blank" class="btn">Mahjong Soul</a>
                 <a href="https://www.mahjong-jp.com/" target="_blank" class="btn">Riichi City</a>
                 <a href="https://tenhou.net/" target="_blank" class="btn">Tenhou</a>
             </div>
+            <img src="images/7D9ZhcVJ.png" alt="Mahjong Soul Interface" class="section-img" style="max-width: 600px;">
+            <p><em>Mahjong Soul</em></p>
         </div>
 
         <div id="learn" class="page-section">
@@ -361,7 +410,18 @@
             </ul>
             
             <p><em>(All perks are sent the first week of each month)</em></p>
-            <a href="https://buy.stripe.com/dRmbJ1fD5bgP2LP0fxdQQ06" target="_blank" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">Sign Up Now</a>
+            <a href="https://buy.stripe.com/dRmbJ1fD5bgP2LP0fxdQQ06" target="_blank" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem; margin-bottom: 2rem;">Sign Up Now</a>
+
+            <div class="img-grid">
+                <div>
+                    <img src="images/PXL_20250614_163944621.MP.jpg" alt="Merch Perks" class="section-img">
+                    <p><em>Stickers, Compass, Wind Chip, Dice</em></p>
+                </div>
+                <div>
+                    <img src="images/image.png" alt="Riichi City In Game Mat & Tiles" class="section-img">
+                    <p><em>Riichi City In Game Mat & Tiles</em></p>
+                </div>
+            </div>
         </div>
 
     </div>
