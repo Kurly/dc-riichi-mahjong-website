@@ -73,7 +73,7 @@
             color: var(--primary-pink);
         }
 
-        /* Dropdown Menu - Hover Gap Fixed */
+        /* Dropdown Menu */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -274,28 +274,11 @@
             <a href="https://discord.gg/3hQzFadT5t" target="_blank" class="btn">Join Our Discord</a>
 
             <h2 style="margin-top: 3rem;">Upcoming Events</h2>
-            <div class="events-grid">
-                <div class="card">
-                    <h3>DC Riichi Mahjong Weekly Meet Up</h3>
-                    <p><strong>Date:</strong> May 31, 2026<br><strong>Time:</strong> 9:00 AM</p>
-                    <p><strong>Location:</strong> Whole Foods Market, McLean, VA</p>
-                </div>
-                <div class="card">
-                    <h3>MLK Library Mahjong Mondays</h3>
-                    <p><strong>Date:</strong> Jun 1, 2026<br><strong>Time:</strong> 3:00 PM</p>
-                    <p><strong>Location:</strong> MLK Library</p>
-                </div>
-                <div class="card">
-                    <h3>MLK Library Mahjong Tuesdays</h3>
-                    <p><strong>Date:</strong> Jun 2, 2026<br><strong>Time:</strong> 3:00 PM</p>
-                    <p><strong>Location:</strong> MLK Library</p>
-                </div>
-                <div class="card">
-                    <h3>Megamahj</h3>
-                    <p><strong>Date:</strong> Aug 8, 2026<br><strong>Time:</strong> 6:00 AM</p>
-                    <p><strong>Location:</strong> Dock 5 @ Union Market, DC</p>
-                </div>
+            
+            <div id="events-container" class="events-grid">
+                <p>Loading upcoming events...</p>
             </div>
+
         </div>
 
         <div id="in-person" class="page-section">
@@ -434,6 +417,63 @@
             <a href="https://www.instagram.com/dcriichimahjong/" target="_blank" title="Instagram">📸</a>
         </div>
     </footer>
+
+    <script>
+        // --- PASTE YOUR API KEY AND CALENDAR ID HERE ---
+        const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
+        const CALENDAR_ID = 'https://calendar.google.com/calendar/u/0?cid=MzBmOGYyMDA0ZmEzMzg5MTVkZDQ3OThiNDMwN2Y4ZWM0OGY5YjE1MGVlM2Q1ZmJjMTBiMzUwNmI1MGU2Mjk3OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t-9OW99CgdJc'; 
+        // -----------------------------------------------
+
+        async function fetchEvents() {
+            const container = document.getElementById('events-container');
+            
+            if (API_KEY === 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc') {
+                container.innerHTML = '<p><em>Please enter your Google API Key in the HTML code to view upcoming events.</em></p>';
+                return;
+            }
+
+            // Get current time to only show future events
+            const now = new Date().toISOString();
+            
+            // Construct the Google Calendar API URL (fetches the next 4 events)
+            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.items && data.items.length > 0) {
+                    container.innerHTML = ''; // Clear the "Loading..." text
+                    
+                    data.items.forEach(event => {
+                        // Format the date nicely
+                        const eventDate = new Date(event.start.dateTime || event.start.date);
+                        const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        const timeString = event.start.dateTime ? eventDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'All Day';
+                        const location = event.location ? event.location : 'Location TBD';
+
+                        // Create the event card HTML
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <h3>${event.summary}</h3>
+                            <p><strong>Date:</strong> ${dateString}<br><strong>Time:</strong> ${timeString}</p>
+                            <p><strong>Location:</strong> ${location}</p>
+                        `;
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = '<p>No upcoming events found. Check back later!</p>';
+                }
+            } catch (error) {
+                container.innerHTML = '<p>Error loading events. Please check the calendar connection.</p>';
+                console.error('Error fetching Google Calendar events:', error);
+            }
+        }
+
+        // Run the function when the page loads
+        document.addEventListener('DOMContentLoaded', fetchEvents);
+    </script>
 
 </body>
 </html>
