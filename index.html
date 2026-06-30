@@ -5,237 +5,375 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DC Riichi Mahjong</title>
     <style>
-        /* CSS Variables for Easy Color Management */
         :root {
-            --brand-pink: #FFD6E4; /* Approximated from your uploaded image */
-            --brand-white: #FFFFFF;
-            --text-main: #333333;
-            --text-light: #555555;
-            --border-color: #eaeaea;
+            --primary-pink: #FFD6E4;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --light-gray: #f9f9f9;
         }
-
-        /* Base Styling */
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+            background-color: var(--primary-pink);
+            color: var(--text-dark);
             margin: 0;
             padding: 0;
-            color: var(--text-main);
-            background-color: var(--brand-pink); 
+            line-height: 1.6;
         }
 
-        /* Claude.com Style Navigation Bar */
-        .navbar {
-            background-color: var(--brand-white);
-            border-bottom: 1px solid var(--border-color);
+        /* Claude-style Navigation */
+        nav {
+            background-color: var(--white);
+            padding: 1rem 2rem;
             display: flex;
-            padding: 1rem 3rem;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #111;
-            text-decoration: none;
+        .logo strong {
+            font-size: 1.5rem;
+            color: var(--text-dark);
         }
 
         .nav-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
             display: flex;
-            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 1.5rem;
+            align-items: center;
         }
 
         .nav-item {
             position: relative;
-            padding: 0.5rem 0;
         }
 
         .nav-item > a {
             text-decoration: none;
-            color: var(--text-light);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
+            color: var(--text-dark);
+            font-weight: bold;
+            padding: 1rem 0;
+            display: inline-block;
         }
 
         .nav-item > a:hover {
-            color: #000;
+            color: var(--primary-pink);
         }
 
-        /* Dropdown Menu Logic */
+        /* Dropdown Menu - Hover Gap Fixed */
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: var(--brand-white);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            background-color: var(--white);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             min-width: 220px;
-            padding: 0.5rem 0;
+            list-style: none;
+            padding: 0;
+            margin: 0; /* Hover gap removed */
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
         }
 
-        /* Reveal dropdown on hover */
         .nav-item:hover .dropdown-menu {
             display: block;
         }
 
-        .dropdown-menu li {
-            list-style: none;
-        }
-
-        .dropdown-menu a {
+        .dropdown-menu li a {
             display: block;
-            padding: 0.6rem 1.5rem;
+            padding: 0.75rem 1rem;
+            font-weight: normal;
             text-decoration: none;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            transition: background-color 0.2s, color 0.2s;
+            color: var(--text-dark);
         }
 
-        .dropdown-menu a:hover {
-            background-color: var(--brand-pink);
-            color: #000;
+        .dropdown-menu li a:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-pink);
         }
 
-        /* Content Styling */
-        .hero {
-            padding: 4rem 2rem;
-            text-align: center;
-            background-color: var(--brand-white);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            max-width: 700px;
-            margin: 0 auto 2rem auto;
-            line-height: 1.6;
-            color: var(--text-light);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--brand-pink);
-            color: #111;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s;
-            border: 1px solid #e8b1c5;
-        }
-
-        .cta-button:hover {
-            background-color: #f2c2d4;
-        }
-
+        /* Layout & Sections */
         .container {
-            max-width: 900px;
-            margin: 3rem auto;
-            padding: 0 2rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        .event-card {
-            background-color: var(--brand-white);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        .page-section {
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            scroll-margin-top: 80px; /* Accounts for sticky nav */
         }
 
-        .event-card h3 {
+        .hero {
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-dark);
             margin-top: 0;
-            color: #111;
         }
 
-        .event-details {
-            color: #666;
-            font-size: 0.95rem;
-            margin: 0.25rem 0;
+        h2 {
+            border-bottom: 2px solid var(--primary-pink);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: var(--text-dark);
+            text-decoration: underline;
+            text-decoration-color: var(--primary-pink);
+            text-decoration-thickness: 2px;
+        }
+
+        a:hover {
+            color: var(--primary-pink);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-pink);
+            color: var(--text-dark);
+        }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-pink);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        ul.perks-list {
+            list-style-type: square;
+            padding-left: 1.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--white);
+            margin-top: 3rem;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            font-size: 1.5rem;
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <a href="#" class="logo">DC Riichi Mahjong</a>
+    <nav>
+        <div class="logo"><strong>DC Riichi Mahjong</strong></div>
         <ul class="nav-links">
-            <li class="nav-item"><a href="#">Home</a></li>
-            
+            <li class="nav-item"><a href="#home">Home</a></li>
             <li class="nav-item">
-                <a href="#">Play In Person ▾</a>
+                <a href="#in-person">Play In Person ▾</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Weekly Meetups</a></li>
-                    <li><a href="#">Tournaments</a></li>
-                    <li><a href="#">Conventions</a></li>
-                    <li><a href="#">Find a Club Near You</a></li>
+                    <li><a href="#meetups">Weekly Meetups</a></li>
+                    <li><a href="#tournaments">Tournaments</a></li>
+                    <li><a href="#conventions">Conventions</a></li>
+                    <li><a href="#find-club">Find a Club Near You</a></li>
                 </ul>
             </li>
-
-            <li class="nav-item"><a href="#">Play Online</a></li>
-
+            <li class="nav-item"><a href="#online">Play Online</a></li>
             <li class="nav-item">
-                <a href="#">Learn To Play ▾</a>
+                <a href="#learn">Learn To Play ▾</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Rules</a></li>
-                    <li><a href="#">Strategy</a></li>
-                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#rules">Rules</a></li>
+                    <li><a href="#strategy">Strategy</a></li>
+                    <li><a href="#equipment">Equipment</a></li>
                 </ul>
             </li>
-
-            <li class="nav-item"><a href="#">Membership</a></li>
+            <li class="nav-item"><a href="#membership">Membership</a></li>
         </ul>
     </nav>
 
-    <header class="hero">
-        <h1>Welcome to the Club!</h1>
-        <p>DC Riichi Mahjong is a vibrant social club dedicated to fostering the appreciation and enjoyment of Riichi Mahjong, a popular strategic tile-based game hailing from Japan. Known for our friendly atmosphere and diverse community, our members range from beginners to experienced players, all brought together by their shared love of this captivating game.</p>
-        <a href="#" class="cta-button">Join Our Discord</a>
-    </header>
+    <div class="container">
+        
+        <div id="home" class="page-section hero">
+            <h1>Welcome to the Club!</h1>
+            <p>DC Riichi Mahjong is a vibrant social club dedicated to fostering the appreciation and enjoyment of Riichi Mahjong, a popular strategic tile-based game hailing from Japan.</p>
+            <p>Known for our friendly atmosphere and diverse community, our members range from beginners to experienced players, all brought together by their shared love of this captivating game.</p>
+            <a href="https://discord.gg/3hQzFadT5t" target="_blank" class="btn">Join Our Discord</a>
 
-    <main class="container">
-        <h2>Upcoming Events</h2>
-
-        <div class="event-card">
-            <h3>DC Riichi Mahjong Weekly Meet Up</h3>
-            <p class="event-details"><strong>Date & Time:</strong> May 31, 2026, 9:00 AM</p>
-            <p class="event-details"><strong>Location:</strong> Whole Foods Market, 1635 Boro Pl, McLean, VA 22102</p>
+            <h2 style="margin-top: 3rem;">Upcoming Events</h2>
+            <div class="events-grid">
+                <div class="card">
+                    <h3>DC Riichi Mahjong Weekly Meet Up</h3>
+                    <p><strong>Date:</strong> May 31, 2026<br><strong>Time:</strong> 9:00 AM</p>
+                    <p><strong>Location:</strong> Whole Foods Market, McLean, VA</p>
+                </div>
+                <div class="card">
+                    <h3>MLK Library Mahjong Mondays</h3>
+                    <p><strong>Date:</strong> Jun 1, 2026<br><strong>Time:</strong> 3:00 PM</p>
+                    <p><strong>Location:</strong> MLK Library</p>
+                </div>
+                <div class="card">
+                    <h3>MLK Library Mahjong Tuesdays</h3>
+                    <p><strong>Date:</strong> Jun 2, 2026<br><strong>Time:</strong> 3:00 PM</p>
+                    <p><strong>Location:</strong> MLK Library</p>
+                </div>
+                <div class="card">
+                    <h3>Megamahj</h3>
+                    <p><strong>Date:</strong> Aug 8, 2026<br><strong>Time:</strong> 6:00 AM</p>
+                    <p><strong>Location:</strong> Dock 5 @ Union Market, DC</p>
+                </div>
+            </div>
         </div>
 
-        <div class="event-card">
-            <h3>MLK Library Mahjong Mondays</h3>
-            <p class="event-details"><strong>Date & Time:</strong> Jun 1, 2026, 3:00 PM</p>
-            <p class="event-details"><strong>Location:</strong> MLK Library</p>
+        <div id="in-person" class="page-section">
+            <h2 id="meetups">Play Mahjong Every Sunday!</h2>
+            <div class="grid-2">
+                <div>
+                    <p>We host a free Riichi Mahjong meet up every Sunday in McLean, Virginia from 12pm - 6pm. We provide all of the equipment to play, but you are more than welcome to bring your own if you have it. If you have never played before, we offer teaching sessions that will take you from zero to hero in just a few hours.</p>
+                    <p><strong>Location:</strong> <a href="https://g.co/kgs/4kPpRNV" target="_blank">Whole Foods Market<br>1635 Boro Pl, McLean, VA 22102</a></p>
+                    <p><em>There are several $5 all day parking garages within 1 block of the Whole Foods. It is also just a 5 minute walk from the Greensboro Silver Line Metro stop.</em></p>
+                </div>
+                <div class="card" id="tournaments">
+                    <h3>Tournaments</h3>
+                    <p>Every spring we host the DC Riichi Mahjong Open (DCO), a two-day tournament open to players of all skill levels.</p>
+                    <p><strong>Upcoming:</strong> <a href="/dco-2026/">DC Riichi Mahjong Open 2026</a></p>
+                    <p><strong>Past Tournaments:</strong></p>
+                    <ul>
+                        <li><a href="/wrl-minor-2025/">WRL Minor 2025</a></li>
+                        <li><a href="/tournaments/dc-open-2025">DC Riichi Mahjong Open 2025</a></li>
+                        <li><a href="/tournaments/dc-open-2024">DC Riichi Mahjong Open 2024</a></li>
+                    </ul>
+                    <a href="https://script.google.com/macros/s/AKfycbxGLyLYOCp5uXHbCM5mVNHUkkQT-Kb3Tj04TpSv2m0TsbhGuAQ1qoMQ0_VPHIsqCtmM0Q/exec?portal=player" target="_blank" class="btn">DC Riichi Mahjong League App</a>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 2rem;">
+                <div id="conventions">
+                    <h3>Conventions</h3>
+                    <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a>.</p>
+                    <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a>, <a href="https://animeusa.org/" target="_blank">Anime USA</a>, <a href="https://super.magfest.org/" target="_blank">Super MAGFest</a>.</p>
+                </div>
+                <div id="find-club">
+                    <h3>Find a Club Near You</h3>
+                    <p>Not located in the DC area? There is probably a Riichi Mahjong club near you! Check out the American Riichi Association’s website for a list of clubs in the United States:</p>
+                    <p><a href="https://portal.nariichi.org/clubs" target="_blank">portal.nariichi.org/clubs</a></p>
+                </div>
+            </div>
         </div>
 
-        <div class="event-card">
-            <h3>MLK Library Mahjong Tuesdays</h3>
-            <p class="event-details"><strong>Date & Time:</strong> Jun 2, 2026, 3:00 PM</p>
-            <p class="event-details"><strong>Location:</strong> MLK Library</p>
+        <div id="online" class="page-section" style="text-align: center;">
+            <h2>Play Online Whenever You Want!</h2>
+            <p>Riichi Mahjong has several free online clients that let you play at any moment. Here are a few that we recommend:</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                <a href="https://mahjongsoul.yo-star.com/" target="_blank" class="btn">Mahjong Soul</a>
+                <a href="https://www.mahjong-jp.com/" target="_blank" class="btn">Riichi City</a>
+                <a href="https://tenhou.net/" target="_blank" class="btn">Tenhou</a>
+            </div>
         </div>
 
-        <div class="event-card">
-            <h3>Megamahj</h3>
-            <p class="event-details"><strong>Date & Time:</strong> Aug 8, 2026, 6:00 AM</p>
-            <p class="event-details"><strong>Location:</strong> Dock 5 @ Union Market, DC</p>
+        <div id="learn" class="page-section">
+            <h2>Learn To Play</h2>
+            <div class="grid-2">
+                <div id="rules" class="card">
+                    <h3>Rules</h3>
+                    <ul>
+                        <li><a href="https://assets.tina.io/adfa19de-2698-47ef-bf39-234ad9578e0f/New%20player%20yaku%20sheet%202026.png" target="_blank">DC Riichi Mahjong Beginner Sheet</a></li>
+                        <li><a href="https://static1.squarespace.com/static/634a7884c297a25f06589b79/t/6834d67360e19c1da6c0d12c/1748293243651/WRC+Rules+2025.pdf" target="_blank">Full WRC Rules (2025)</a></li>
+                        <li><a href="https://static1.squarespace.com/static/634a7884c297a25f06589b79/t/63c82bff2245392703c3a3cb/1674062885858/WRC_Yaku_1_5_3.pdf" target="_blank">Yaku List</a></li>
+                        <li><a href="https://assets.tina.io/adfa19de-2698-47ef-bf39-234ad9578e0f/score_chart.png" target="_blank">Score Chart</a></li>
+                    </ul>
+                </div>
+                <div id="strategy" class="card">
+                    <h3>Strategy</h3>
+                    <ul>
+                        <li><a href="https://ooyamaneko.net/en/download/download.php?file=/download/mahjong/riichi/Daina_Chiba_-_Riichi_Book_1_en.pdf" target="_blank">Riichi Book 1</a></li>
+                        <li><a href="https://euophrys.itch.io/mahjong-efficiency-trainer" target="_blank">Discard Efficiency Trainer</a></li>
+                        <li><a href="https://mahjong.horneds.com/" target="_blank">Scoring Trainer</a></li>
+                        <li><a href="https://www.youtube.com/@DCRiichiMahjongClub" target="_blank">DCRM Strategy Presentations (YouTube)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="equipment" style="margin-top: 2rem; text-align: center;">
+                <h3>Equipment Links</h3>
+                <p>
+                    <a href="https://www.ymimports.com/collections/japanese/products/yw-jm001-a" target="_blank">Yellow Mountain Import Mahjong Set</a> | 
+                    <a href="https://www.mjstars.net/product-page/amos-smart" target="_blank">AMOS SMART Set</a> | 
+                    <a href="https://www.amazon.com/Mahjong-mat-junk-japan/dp/B0017KHW3A" target="_blank">Junk Mat (Amazon)</a>
+                </p>
+            </div>
         </div>
-    </main>
+
+        <div id="membership" class="page-section hero">
+            <h2>Become a DC Riichi Mahjong Member!</h2>
+            <p>Want to support DC Riichi Mahjong and receive exclusive perks? For <strong>$50/year</strong>, members receive an extensive package that includes:</p>
+            
+            <ul class="perks-list" style="text-align: left; display: inline-block; max-width: 600px;">
+                <li>DCRM merchandise (Sticker package, wind chip, pink dice, pink 3D-printed Riichi compass).</li>
+                <li>Riichi City in-game DCRM themed tiles and mat.</li>
+                <li>Access to a monthly members-only online tournament on Riichi City every first Friday of the month.</li>
+                <li>Access to a bimonthly (every two months) strategy lecture.</li>
+                <li>Log reviews from the DC Riichi staff.</li>
+                <li>Free non-tournament entry to the DC Riichi Mahjong Open.</li>
+            </ul>
+            
+            <p><em>(All perks are sent the first week of each month)</em></p>
+            <a href="https://buy.stripe.com/dRmbJ1fD5bgP2LP0fxdQQ06" target="_blank" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">Sign Up Now</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 DC Riichi Mahjong. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="mailto:info@dcriichimahjong.com" target="_blank" title="Email">✉️</a>
+            <a href="https://discord.gg/3hQzFadT5t" target="_blank" title="Discord">💬</a>
+            <a href="https://www.instagram.com/dcriichimahjong/" target="_blank" title="Instagram">📸</a>
+        </div>
+    </footer>
 
 </body>
 </html>
