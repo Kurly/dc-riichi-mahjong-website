@@ -188,7 +188,7 @@
         a:hover { color: var(--primary-pink); }
         .section-img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .btn { display: inline-block; background-color: var(--text-dark); color: var(--white); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 1rem; transition: background-color 0.2s; }
+        .btn { display: inline-block; background-color: var(--text-dark); color: var(--white); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 1rem; }
         .btn:hover { background-color: var(--primary-pink); color: var(--text-dark); }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; }
         .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; text-align: left; }
@@ -254,12 +254,16 @@
 
             <h2 style="margin-top: 3rem;">Upcoming Events</h2>
             
+            <div id="oneoff-events-container" class="events-grid">
+                <p>Loading upcoming events...</p>
+            </div>
         </div>
+
         <div id="in-person" class="page-section hero">
             <h2 style="margin-top: 3rem;">Weekly Meetups</h2>
             
-            <div id="events-container" class="events-grid">
-                <p>Loading upcoming events...</p>
+            <div id="weekly-events-container" class="events-grid">
+                <p>Loading weekly events...</p>
             </div>
 
             <div class="grid-2" style="margin-top: 3rem;">
@@ -269,7 +273,7 @@
                 <div class="card" id="tournaments">
                     <h3>Tournaments</h3>
                     <p>Every spring we host the <b>DC Riichi Mahjong Open (DCO)</b>, a two-day tournament open to players of all skill levels.</p>
-                    <a href="https://script.google.com/macros/s/AKfycbyltwl23Z_ilMxt8Mz4BSl-JcHxDn0lNn0m8jrXArxS0xciQFxQ6uNavZDwo_KQXyPH/exec" target="_blank" class="btn">DC Riichi Mahjong Tournament App</a>
+                    <a href="https://script.google.com/macros/s/AKfycbyltwl23Z_ilMxt8Mz4BSl-JcHxDn0lNn0m8jrXArxS0xciQFxQ6uNavZDwo_KQXyPH/exec" target="_blank" class="btn">DC Riichi Mahjong Tournaments</a>
                     <p><strong>Past Tournaments:</strong></p>
                     <ul>
                         <li><a href="/dco-2026/">DC Riichi Mahjong Open 2026</a></li>   
@@ -285,7 +289,7 @@
                 <div class="card" id="conventions">
                     <h3>Conventions</h3>
                     <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a>.</p>
-                    <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a>, <a href="https://animeusa.org/" target="_blank">Anime USA</a>, <a href="https://super.magfest.org/" target="_blank">Super MAGFest</a>.</p>
+                    <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a>, <a href="https://www.magfest.org/" target="_blank">MAGFest</a></p>
                 </div>
                 <div style="text-align: center;">
                     <img src="images/inperson3.jpg" alt="Conventions" class="section-img">
@@ -298,7 +302,7 @@
                 </div>
                 <div class="card" id="find-club">
                     <h3>Find a Club Near You</h3>
-                    <p>Not located in the DC area? There is probably a Riichi Mahjong club near you! Check out the American Riichi Association’s website for a list of clubs in the United States:</p>
+                    <p>Not located in the DC area? There is probably a Riichi Mahjong club near you! Check out the American Riichi Association's website for a list of clubs in the United States.</p>
                     <p><a href="https://portal.nariichi.org/clubs" target="_blank">portal.nariichi.org/clubs</a></p>
                 </div>
             </div>
@@ -386,6 +390,7 @@
         </div>
     </footer>
 
+    <script src="config.js"></script>
     <script>
         // Menu Toggle
         const mobileMenu = document.getElementById('mobile-menu');
@@ -414,17 +419,15 @@
             }); 
         });
 
-        // Dynamic Google Calendar API Script
-        async function fetchEvents() {
-            const container = document.getElementById('events-container');
-            if (!container) return; // Safety check
+        // Function to fetch events from a specific calendar
+        async function fetchCalendarEvents(calendarId, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
 
-            const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
-            const CALENDAR_ID = '8456daeb81e2fbb618f23e115068438be4f9c7da496d3b8ae2f6d201e97e4abf@group.calendar.google.com';
             const now = new Date().toISOString();
             
             // Construct the Google Calendar API URL
-            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
+            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
 
             try {
                 const response = await fetch(url);
@@ -459,7 +462,11 @@
             }
         }
         
-        document.addEventListener('DOMContentLoaded', fetchEvents);
+        // Fetch both calendars on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCalendarEvents(DCRM_CONFIG.WEEKLY_CALENDAR_ID, 'weekly-events-container');
+            fetchCalendarEvents(DCRM_CONFIG.ONEOFF_CALENDAR_ID, 'oneoff-events-container');
+        });
     </script>
 </body>
 </html>
