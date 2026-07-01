@@ -47,7 +47,7 @@
         }
 
         .logo img {
-            height: 80px;
+            height: 50px;
             width: auto;
         }
 
@@ -78,9 +78,21 @@
             align-items: center;
         }
 
-        .nav-item { position: relative; }
-        .nav-item > a { text-decoration: none; color: var(--text-dark); font-weight: bold; padding: 1rem 0; display: inline-block; }
-        .nav-item > a:hover { color: var(--primary-pink); }
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item > a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            padding: 1rem 0;
+            display: inline-block;
+        }
+
+        .nav-item > a:hover {
+            color: var(--primary-pink);
+        }
 
         /* Dropdown Menu (Desktop) */
         .dropdown-menu {
@@ -99,15 +111,30 @@
         }
 
         @media (min-width: 951px) {
-            .nav-item:hover .dropdown-menu { display: block; }
+            .nav-item:hover .dropdown-menu {
+                display: block;
+            }
         }
 
-        .dropdown-menu li a { display: block; padding: 0.75rem 1rem; font-weight: normal; text-decoration: none; color: var(--text-dark); }
-        .dropdown-menu li a:hover { background-color: var(--light-gray); color: var(--primary-pink); }
+        .dropdown-menu li a {
+            display: block;
+            padding: 0.75rem 1rem;
+            font-weight: normal;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-pink);
+        }
 
         /* --- MOBILE RESPONSIVE LAYOUT --- */
         @media (max-width: 950px) {
-            .menu-toggle { display: flex; }
+            .menu-toggle {
+                display: flex;
+            }
+
             .nav-links {
                 display: none;
                 flex-direction: column;
@@ -120,11 +147,32 @@
                 padding: 1rem 0;
                 gap: 0;
             }
-            .nav-links.active { display: flex; }
-            .nav-item { width: 100%; text-align: center; border-bottom: 1px solid var(--light-gray); }
-            .nav-item > a { padding: 1rem; display: block; }
-            .dropdown-menu { position: static; box-shadow: none; background-color: var(--light-gray); }
-            .nav-item.mobile-dropdown-active .dropdown-menu { display: block; }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .nav-item > a {
+                padding: 1rem;
+                display: block;
+            }
+
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: var(--light-gray);
+            }
+
+            .nav-item.mobile-dropdown-active .dropdown-menu {
+                display: block;
+            }
+
             .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
             .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
@@ -139,19 +187,33 @@
         a { color: var(--text-dark); text-decoration: underline; text-decoration-color: var(--primary-pink); text-decoration-thickness: 2px; }
         a:hover { color: var(--primary-pink); }
         .section-img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
         .btn { display: inline-block; background-color: var(--text-dark); color: var(--white); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 1rem; transition: background-color 0.2s; }
         .btn:hover { background-color: var(--primary-pink); color: var(--text-dark); }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; }
-        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; text-align: left; }
         .card { background-color: var(--light-gray); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-pink); }
+        .card h3 { margin-top: 0; font-size: 1.2rem; }
+        ul.perks-list { list-style-type: square; padding-left: 1.5rem; }
         footer { text-align: center; padding: 2rem; background-color: var(--white); margin-top: 3rem; }
+        .social-icons { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; }
+        .social-icons a { text-decoration: none; font-size: 1.5rem; }
+        
+        /* Event Description Styling */
+        .event-description {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eaeaea;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="#home" class="logo">
-            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB_TEXT.png" alt="DC Riichi Mahjong Logo">
+            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB.png" alt="DC Riichi Mahjong Logo">
         </a>
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -165,23 +227,38 @@
                 <ul class="dropdown-menu">
                     <li><a href="#meetups" class="nav-close">Weekly Meetups</a></li>
                     <li><a href="#tournaments" class="nav-close">Tournaments</a></li>
+                    <li><a href="#conventions" class="nav-close">Conventions</a></li>
+                    <li><a href="#find-club" class="nav-close">Find a Club Near You</a></li>
                 </ul>
             </li>
             <li class="nav-item"><a href="#online" class="nav-close">Play Online</a></li>
+            <li class="nav-item">
+                <a href="#learn">Learn To Play ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#rules" class="nav-close">Rules</a></li>
+                    <li><a href="#strategy" class="nav-close">Strategy</a></li>
+                    <li><a href="#equipment" class="nav-close">Equipment</a></li>
+                </ul>
+            </li>
             <li class="nav-item"><a href="#membership" class="nav-close">Membership</a></li>
         </ul>
     </nav>
 
     <div class="container">
+        
         <div id="home" class="page-section hero">
             <h1>Welcome to the Club!</h1>
+            <p>DC Riichi Mahjong is a vibrant social club dedicated to fostering the appreciation and enjoyment of Riichi Mahjong, a popular strategic tile-based game hailing from Japan.</p>
+            <p>Known for our friendly atmosphere and diverse community, our members range from beginners to experienced players, all brought together by their shared love of this captivating game.</p>
+            <a href="https://discord.gg/3hQzFadT5t" target="_blank" class="btn">Join Our Discord</a>
+
+            <h2 style="margin-top: 3rem;">Upcoming Events</h2>
+            
             <div id="events-container" class="events-grid">
                 <p>Loading upcoming events...</p>
             </div>
         </div>
-    </div>
-<div class="container">
-        
+
         <div id="in-person" class="page-section">
             <h2 id="meetups">Play Mahjong Every Sunday!</h2>
             <div class="grid-2">
@@ -244,7 +321,7 @@
                 <a href="https://www.mahjong-jp.com/" target="_blank" class="btn">Riichi City</a>
                 <a href="https://tenhou.net/" target="_blank" class="btn">Tenhou</a>
             </div>
-            <img src="images/7D9ZhcVJ.png" alt="Mahjong Soul Interface" class="section-img">
+            <img src="images/7D9ZhcVJ.png" alt="Mahjong Soul Interface" class="section-img" style="max-width: 600px;">
             <p><em>Mahjong Soul</em></p>
         </div>
 
@@ -302,23 +379,52 @@
                     <p><em>Stickers, Compass, Wind Chip, Dice</em></p>
                 </div>
                 <div>
-                    <img src="images/image.png" alt="Riichi City In Game Mat &amp; Tiles" class="section-img">
-                    <p><em>Riichi City In Game Mat &amp; Tiles</em></p>
+                    <img src="images/image.png" alt="Riichi City In Game Mat & Tiles" class="section-img">
+                    <p><em>Riichi City In Game Mat & Tiles</em></p>
                 </div>
             </div>
         </div>
 
     </div>
+
+    <footer>
+        <p>&copy; 2026 DC Riichi Mahjong. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="mailto:info@dcriichimahjong.com" target="_blank" title="Email">✉️</a>
+            <a href="https://discord.gg/3hQzFadT5t" target="_blank" title="Discord">💬</a>
+            <a href="https://www.instagram.com/dcriichimahjong/" target="_blank" title="Instagram">📸</a>
+        </div>
+    </footer>
+
     <script>
         // Menu Toggle
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.querySelector('.nav-links');
+        
         mobileMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('is-active');
             navLinks.classList.toggle('active');
         });
+        
+        document.querySelectorAll('.nav-close').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active'); 
+                mobileMenu.classList.remove('is-active'); 
+            });
+        });
+        
+        document.querySelectorAll('.nav-item').forEach(item => { 
+            item.addEventListener('click', (e) => { 
+                if (window.innerWidth <= 950 && item.querySelector('.dropdown-menu')) { 
+                    if (e.target === item.querySelector('a')) {
+                        e.preventDefault(); 
+                        item.classList.toggle('mobile-dropdown-active'); 
+                    }
+                } 
+            }); 
+        });
 
-        // Calendar script
+        // Dynamic Google Calendar API Script
         async function fetchEvents() {
             const container = document.getElementById('events-container');
             if (!container) return; // Safety check
@@ -326,27 +432,43 @@
             const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
             const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com';
             const now = new Date().toISOString();
+            
+            // Construct the Google Calendar API URL
             const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
 
             try {
                 const response = await fetch(url);
                 const data = await response.json();
+                
                 if (data.items && data.items.length > 0) {
-                    container.innerHTML = '';
-                    data.items.forEach(event => {
-                        const eventDate = new Date(event.start.dateTime || event.start.date);
+                    container.innerHTML = ''; // Clear the "Loading..." text
+                    
+                    data.items.forEach(e => {
+                        const eventDate = new Date(e.start.dateTime || e.start.date);
+                        const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        const timeString = e.start.dateTime ? eventDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'All Day';
+                        const location = e.location ? e.location : 'Location TBD';
+                        const description = e.description ? e.description : 'No description provided.';
+                        
+                        // Safely create the event card and append
                         const card = document.createElement('div');
                         card.className = 'card';
-                        card.innerHTML = `<h3>${event.summary}</h3><p><strong>Date:</strong> ${eventDate.toLocaleDateString()}</p>`;
+                        card.innerHTML = `
+                            <h3>${e.summary}</h3>
+                            <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${dateString} at ${timeString}</p>
+                            <p style="margin-top: 0; margin-bottom: 1rem;"><strong>Location:</strong> ${location}</p>
+                            <div class="event-description">${description}</div>
+                        `;
                         container.appendChild(card);
                     });
                 } else {
                     container.innerHTML = '<p>No upcoming events found.</p>';
                 }
             } catch (error) {
-                container.innerHTML = '<p>Error loading events.</p>';
+                container.innerHTML = '<p>Error loading events. Please check the calendar connection.</p>';
             }
         }
+        
         document.addEventListener('DOMContentLoaded', fetchEvents);
     </script>
 </body>
