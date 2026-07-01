@@ -260,17 +260,10 @@
         </div>
 
         <div id="in-person" class="page-section">
-            <h2 id="meetups">Play Mahjong Every Sunday!</h2>
-            <div class="grid-2">
-                <div>
-                    <p>We host a free Riichi Mahjong meet up every Sunday in McLean, Virginia from 12pm - 6pm. We provide all of the equipment to play, but you are more than welcome to bring your own if you have it. If you have never played before, we offer teaching sessions that will take you from zero to hero in just a few hours.</p>
-                    <p><strong>Location:</strong> <a href="https://g.co/kgs/4kPpRNV" target="_blank">Whole Foods Market<br>1635 Boro Pl, McLean, VA 22102</a></p>
-                    <p><em>There are several $5 all day parking garages within 1 block of the Whole Foods. It is also just a 5 minute walk from the Greensboro Silver Line Metro stop.</em></p>
-                     <a href="https://script.google.com/macros/s/AKfycbxGLyLYOCp5uXHbCM5mVNHUkkQT-Kb3Tj04TpSv2m0TsbhGuAQ1qoMQ0_VPHIsqCtmM0Q/exec?portal=player" target="_blank" class="btn">DC Riichi Mahjong League App</a>
-                </div>
-                <div style="text-align: center;">
-                    <img src="images/inperson1.jpg" alt="Weekly Meetups" class="section-img">
-                </div>
+            <h2 style="margin-top: 3rem;">Weekly Meetups</h2>
+            
+            <div id="events-container" class="events-grid">
+                <p>Loading upcoming events...</p>
             </div>
 
             <div class="grid-2" style="margin-top: 3rem;">
@@ -431,7 +424,7 @@
             if (!container) return; // Safety check
 
             const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
-            const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com';
+            const CALENDAR_ID = '8456daeb81e2fbb618f23e115068438be4f9c7da496d3b8ae2f6d201e97e4abf@group.calendar.google.com';
             const now = new Date().toISOString();
             
             // Construct the Google Calendar API URL
