@@ -437,7 +437,7 @@
             const now = new Date().toISOString();
             
             // Construct the Google Calendar API URL
-            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
+            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=10`;
 
             try {
                 const response = await fetch(url);
@@ -447,18 +447,50 @@
                     container.innerHTML = ''; // Clear the "Loading..." text
                     
                     data.items.forEach(e => {
-                        const eventDate = new Date(e.start.dateTime || e.start.date);
-                        const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                        const timeString = e.start.dateTime ? eventDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'All Day';
+                        const start = e.start.dateTime ? new Date(e.start.dateTime) : new Date(e.start.date);
+                        const end = e.end && (e.end.dateTime || e.end.date) ? new Date(e.end.dateTime || e.end.date) : null;
+
+                        // Build date and time strings, showing end time when available
+                        let dateString = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        const timeOptions = { hour: 'numeric', minute: '2-digit' };
+                        let timeString = e.start.dateTime ? start.toLocaleTimeString('en-US', timeOptions) : 'All Day';
+
+                        if (end) {
+                            if (e.start.dateTime && e.end.dateTime) {
+                                // Timed event
+                                if (start.toDateString() === end.toDateString()) {
+                                    // Same day: show start — end times
+                                    timeString = `${start.toLocaleTimeString('en-US', timeOptions)} — ${end.toLocaleTimeString('en-US', timeOptions)}`;
+                                } else {
+                                    // Multi-day timed event: show full start and end
+                                    dateString = `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} — ${end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                                    timeString = `${start.toLocaleTimeString('en-US', timeOptions)} — ${end.toLocaleTimeString('en-US', timeOptions)}`;
+                                }
+                            } else {
+                                // All-day event (date only). If it spans multiple days, show the date range.
+                                if (start.toDateString() !== end.toDateString()) {
+                                    // Note: Google Calendar uses exclusive end dates for all-day events; subtract one day for display if needed.
+                                    const adjustedEnd = new Date(end);
+                                    // If end's time is 00:00:00, it's likely the exclusive end; subtract a day to show the inclusive last date.
+                                    if (adjustedEnd.getHours() === 0 && adjustedEnd.getMinutes() === 0 && adjustedEnd.getSeconds() === 0) {
+                                        adjustedEnd.setDate(adjustedEnd.getDate() - 1);
+                                    }
+                                    dateString = `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} — ${adjustedEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                                }
+                                timeString = 'All Day';
+                            }
+                        }
+
                         const location = e.location ? e.location : 'Location TBD';
                         const description = e.description ? e.description : 'No description provided.';
+                        const dateTimeDisplay = timeString === 'All Day' ? `${dateString} (All Day)` : `${dateString} at ${timeString}`;
                         
                         // Safely create the event card and append
                         const card = document.createElement('div');
                         card.className = 'card';
                         card.innerHTML = `
                             <h3>${e.summary}</h3>
-                            <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${dateString} at ${timeString}</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${dateTimeDisplay}</p>
                             <p style="margin-top: 0; margin-bottom: 1rem;"><strong>Location:</strong> ${location}</p>
                             <div class="event-description">${description}</div>
                         `;
