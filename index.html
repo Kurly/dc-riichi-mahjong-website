@@ -40,7 +40,6 @@
             z-index: 1000;
         }
 
-        /* Logo on the Left - Kept original size */
         .logo {
             display: flex;
             align-items: center;
@@ -48,7 +47,7 @@
         }
 
         .logo img {
-            height: 50px; /* Restored/Maintained original size */
+            height: 50px;
             width: auto;
         }
 
@@ -79,21 +78,9 @@
             align-items: center;
         }
 
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-item > a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: bold;
-            padding: 1rem 0;
-            display: inline-block;
-        }
-
-        .nav-item > a:hover {
-            color: var(--primary-pink);
-        }
+        .nav-item { position: relative; }
+        .nav-item > a { text-decoration: none; color: var(--text-dark); font-weight: bold; padding: 1rem 0; display: inline-block; }
+        .nav-item > a:hover { color: var(--primary-pink); }
 
         /* Dropdown Menu (Desktop) */
         .dropdown-menu {
@@ -112,30 +99,15 @@
         }
 
         @media (min-width: 951px) {
-            .nav-item:hover .dropdown-menu {
-                display: block;
-            }
+            .nav-item:hover .dropdown-menu { display: block; }
         }
 
-        .dropdown-menu li a {
-            display: block;
-            padding: 0.75rem 1rem;
-            font-weight: normal;
-            text-decoration: none;
-            color: var(--text-dark);
-        }
-
-        .dropdown-menu li a:hover {
-            background-color: var(--light-gray);
-            color: var(--primary-pink);
-        }
+        .dropdown-menu li a { display: block; padding: 0.75rem 1rem; font-weight: normal; text-decoration: none; color: var(--text-dark); }
+        .dropdown-menu li a:hover { background-color: var(--light-gray); color: var(--primary-pink); }
 
         /* --- MOBILE RESPONSIVE LAYOUT --- */
         @media (max-width: 950px) {
-            .menu-toggle {
-                display: flex;
-            }
-
+            .menu-toggle { display: flex; }
             .nav-links {
                 display: none;
                 flex-direction: column;
@@ -148,32 +120,11 @@
                 padding: 1rem 0;
                 gap: 0;
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-item {
-                width: 100%;
-                text-align: center;
-                border-bottom: 1px solid var(--light-gray);
-            }
-
-            .nav-item > a {
-                padding: 1rem;
-                display: block;
-            }
-
-            .dropdown-menu {
-                position: static;
-                box-shadow: none;
-                background-color: var(--light-gray);
-            }
-
-            .nav-item.mobile-dropdown-active .dropdown-menu {
-                display: block;
-            }
-
+            .nav-links.active { display: flex; }
+            .nav-item { width: 100%; text-align: center; border-bottom: 1px solid var(--light-gray); }
+            .nav-item > a { padding: 1rem; display: block; }
+            .dropdown-menu { position: static; box-shadow: none; background-color: var(--light-gray); }
+            .nav-item.mobile-dropdown-active .dropdown-menu { display: block; }
             .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
             .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
@@ -188,29 +139,25 @@
         a { color: var(--text-dark); text-decoration: underline; text-decoration-color: var(--primary-pink); text-decoration-thickness: 2px; }
         a:hover { color: var(--primary-pink); }
         .section-img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
         .btn { display: inline-block; background-color: var(--text-dark); color: var(--white); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 1rem; transition: background-color 0.2s; }
         .btn:hover { background-color: var(--primary-pink); color: var(--text-dark); }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; }
         .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
         .card { background-color: var(--light-gray); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-pink); }
         footer { text-align: center; padding: 2rem; background-color: var(--white); margin-top: 3rem; }
-        .social-icons { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="#home" class="logo">
-            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB_TEXT.png" alt="DC Riichi Mahjong Logo">
+            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB.png" alt="DC Riichi Mahjong Logo">
         </a>
-
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
-
         <ul class="nav-links">
             <li class="nav-item"><a href="#home" class="nav-close">Home</a></li>
             <li class="nav-item">
@@ -218,56 +165,41 @@
                 <ul class="dropdown-menu">
                     <li><a href="#meetups" class="nav-close">Weekly Meetups</a></li>
                     <li><a href="#tournaments" class="nav-close">Tournaments</a></li>
-                    <li><a href="#conventions" class="nav-close">Conventions</a></li>
-                    <li><a href="#find-club" class="nav-close">Find a Club Near You</a></li>
                 </ul>
             </li>
             <li class="nav-item"><a href="#online" class="nav-close">Play Online</a></li>
-            <li class="nav-item">
-                <a href="#learn">Learn To Play ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#rules" class="nav-close">Rules</a></li>
-                    <li><a href="#strategy" class="nav-close">Strategy</a></li>
-                    <li><a href="#equipment" class="nav-close">Equipment</a></li>
-                </ul>
-            </li>
             <li class="nav-item"><a href="#membership" class="nav-close">Membership</a></li>
         </ul>
     </nav>
 
+    <div class="container">
+        <div id="home" class="page-section hero">
+            <h1>Welcome to the Club!</h1>
+            <div id="events-container" class="events-grid">
+                <p>Loading upcoming events...</p>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Menu Toggle
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.querySelector('.nav-links');
         mobileMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('is-active');
             navLinks.classList.toggle('active');
         });
-        document.querySelectorAll('.nav-close').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 950) {
-                    mobileMenu.classList.remove('is-active');
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                if (window.innerWidth <= 950 && item.querySelector('.dropdown-menu')) {
-                    if (e.target === item.querySelector('a')) {
-                        e.preventDefault();
-                        item.classList.toggle('mobile-dropdown-active');
-                    }
-                }
-            });
-        });
 
-        // Calendar script...
-        const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
-        const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com'; 
+        // Calendar script
         async function fetchEvents() {
             const container = document.getElementById('events-container');
+            if (!container) return; // Safety check
+
+            const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
+            const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com';
             const now = new Date().toISOString();
             const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
+
             try {
                 const response = await fetch(url);
                 const data = await response.json();
@@ -280,8 +212,12 @@
                         card.innerHTML = `<h3>${event.summary}</h3><p><strong>Date:</strong> ${eventDate.toLocaleDateString()}</p>`;
                         container.appendChild(card);
                     });
+                } else {
+                    container.innerHTML = '<p>No upcoming events found.</p>';
                 }
-            } catch (error) { console.error(error); }
+            } catch (error) {
+                container.innerHTML = '<p>Error loading events.</p>';
+            }
         }
         document.addEventListener('DOMContentLoaded', fetchEvents);
     </script>
