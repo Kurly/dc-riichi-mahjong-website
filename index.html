@@ -27,7 +27,7 @@
             line-height: 1.6;
         }
 
-        /* Claude-style Navigation */
+        /* Navigation Base */
         nav {
             background-color: var(--white);
             padding: 1rem 2rem;
@@ -40,14 +40,15 @@
             z-index: 1000;
         }
 
-        /* New Logo Layout */
+        /* Logo Layout */
         .logo-left {
             display: flex;
             align-items: center;
+            z-index: 1001; /* Keeps logo above mobile menu */
         }
 
         .logo-left img {
-            height: 80px;
+            height: 40px;
             width: auto;
         }
 
@@ -60,17 +61,28 @@
         }
 
         .logo-center img {
-            height: 35px; /* Scaled slightly to fit well in the header */
+            height: 35px;
             width: auto;
         }
 
-        /* Hide the center text on smaller screens so it doesn't overlap nav links */
-        @media (max-width: 950px) {
-            .logo-center {
-                display: none;
-            }
+        /* Hamburger Menu Icon */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            z-index: 1001;
         }
 
+        .menu-toggle .bar {
+            height: 3px;
+            width: 25px;
+            background-color: var(--text-dark);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Desktop Nav Links */
         .nav-links {
             display: flex;
             list-style: none;
@@ -96,7 +108,7 @@
             color: var(--primary-pink);
         }
 
-        /* Dropdown Menu */
+        /* Dropdown Menu (Desktop) */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -112,8 +124,11 @@
             overflow: hidden;
         }
 
-        .nav-item:hover .dropdown-menu {
-            display: block;
+        /* Hover works on Desktop */
+        @media (min-width: 951px) {
+            .nav-item:hover .dropdown-menu {
+                display: block;
+            }
         }
 
         .dropdown-menu li a {
@@ -129,6 +144,72 @@
             color: var(--primary-pink);
         }
 
+        /* --- MOBILE RESPONSIVE LAYOUT --- */
+        @media (max-width: 950px) {
+            .logo-center {
+                display: none; /* Hide long text on mobile to save space */
+            }
+
+            .menu-toggle {
+                display: flex; /* Show hamburger */
+            }
+
+            .nav-links {
+                display: none; /* Hide default nav */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                padding: 1rem 0;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex; /* Show when hamburger is clicked */
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .nav-item:last-child {
+                border-bottom: none;
+            }
+
+            .nav-item > a {
+                padding: 1rem;
+                display: block;
+            }
+
+            /* Mobile Dropdown (Inline Expansion) */
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: var(--light-gray);
+                border-radius: 0;
+            }
+
+            .nav-item.mobile-dropdown-active .dropdown-menu {
+                display: block;
+            }
+
+            /* Hamburger Animation to "X" */
+            .menu-toggle.is-active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            .menu-toggle.is-active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.is-active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+        }
+
         /* Layout & Sections */
         .container {
             max-width: 1000px;
@@ -138,10 +219,16 @@
 
         .page-section {
             background-color: var(--white);
-            padding: 3rem;
+            padding: 2rem 3rem;
             border-radius: 12px;
             margin-bottom: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 600px) {
+            .page-section {
+                padding: 1.5rem; /* Slightly less padding on very small screens */
+            }
         }
 
         .hero {
@@ -267,27 +354,33 @@
             <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB-TEXT-LONG.png" alt="DC Riichi Mahjong Text Logo">
         </a>
 
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
         <ul class="nav-links">
-            <li class="nav-item"><a href="#home">Home</a></li>
+            <li class="nav-item"><a href="#home" class="nav-close">Home</a></li>
             <li class="nav-item">
                 <a href="#in-person">Play In Person ▾</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#meetups">Weekly Meetups</a></li>
-                    <li><a href="#tournaments">Tournaments</a></li>
-                    <li><a href="#conventions">Conventions</a></li>
-                    <li><a href="#find-club">Find a Club Near You</a></li>
+                    <li><a href="#meetups" class="nav-close">Weekly Meetups</a></li>
+                    <li><a href="#tournaments" class="nav-close">Tournaments</a></li>
+                    <li><a href="#conventions" class="nav-close">Conventions</a></li>
+                    <li><a href="#find-club" class="nav-close">Find a Club Near You</a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="#online">Play Online</a></li>
+            <li class="nav-item"><a href="#online" class="nav-close">Play Online</a></li>
             <li class="nav-item">
                 <a href="#learn">Learn To Play ▾</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#rules">Rules</a></li>
-                    <li><a href="#strategy">Strategy</a></li>
-                    <li><a href="#equipment">Equipment</a></li>
+                    <li><a href="#rules" class="nav-close">Rules</a></li>
+                    <li><a href="#strategy" class="nav-close">Strategy</a></li>
+                    <li><a href="#equipment" class="nav-close">Equipment</a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="#membership">Membership</a></li>
+            <li class="nav-item"><a href="#membership" class="nav-close">Membership</a></li>
         </ul>
     </nav>
 
@@ -364,7 +457,7 @@
         <div id="online" class="page-section" style="text-align: center;">
             <h2>Play Online Whenever You Want!</h2>
             <p>Riichi Mahjong has several free online clients that let you play at any moment. Here are a few that we recommend:</p>
-            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; margin-bottom: 2rem;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1rem; margin-bottom: 2rem;">
                 <a href="https://mahjongsoul.yo-star.com/" target="_blank" class="btn">Mahjong Soul</a>
                 <a href="https://www.mahjong-jp.com/" target="_blank" class="btn">Riichi City</a>
                 <a href="https://tenhou.net/" target="_blank" class="btn">Tenhou</a>
@@ -445,6 +538,42 @@
     </footer>
 
     <script>
+        // --- MOBILE MENU FUNCTIONALITY ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-item');
+        const closeLinks = document.querySelectorAll('.nav-close');
+
+        // Toggle main menu
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a direct link (Home, Play Online, etc)
+        closeLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 950) {
+                    mobileMenu.classList.remove('is-active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle Mobile Dropdowns (Expand on tap)
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (window.innerWidth <= 950 && item.querySelector('.dropdown-menu')) {
+                    // Only toggle if clicking the main category header
+                    if (e.target === item.querySelector('a')) {
+                        e.preventDefault();
+                        item.classList.toggle('mobile-dropdown-active');
+                    }
+                }
+            });
+        });
+
+        // --- GOOGLE CALENDAR API SCRIPT ---
         const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
         const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com'; 
 
