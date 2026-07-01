@@ -11,6 +11,12 @@
             --text-dark: #333333;
             --light-gray: #f9f9f9;
         }
+
+        /* --- SMOOTH SCROLLING --- */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
         
         body {
             font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
@@ -34,18 +40,35 @@
             z-index: 1000;
         }
 
-        .logo {
+        /* New Logo Layout */
+        .logo-left {
             display: flex;
             align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 1.5rem;
         }
 
-        .logo img {
+        .logo-left img {
             height: 40px;
             width: auto;
+        }
+
+        .logo-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-center img {
+            height: 35px; /* Scaled slightly to fit well in the header */
+            width: auto;
+        }
+
+        /* Hide the center text on smaller screens so it doesn't overlap nav links */
+        @media (max-width: 950px) {
+            .logo-center {
+                display: none;
+            }
         }
 
         .nav-links {
@@ -119,7 +142,6 @@
             border-radius: 12px;
             margin-bottom: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            scroll-margin-top: 80px; 
         }
 
         .hero {
@@ -237,9 +259,14 @@
 <body>
 
     <nav>
-        <a href="#home" class="logo">
-            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB_TEXT.png" alt="DC Riichi Mahjong Logo">
+        <a href="#home" class="logo-left">
+            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB.png" alt="DC Riichi Mahjong Icon">
         </a>
+
+        <a href="#home" class="logo-center">
+            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB-TEXT-LONG.png" alt="DC Riichi Mahjong Text Logo">
+        </a>
+
         <ul class="nav-links">
             <li class="nav-item"><a href="#home">Home</a></li>
             <li class="nav-item">
@@ -418,10 +445,8 @@
     </footer>
 
     <script>
-        // --- YOUR API KEY AND CALENDAR ID ---
         const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
         const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com'; 
-        // ------------------------------------
 
         async function fetchEvents() {
             const container = document.getElementById('events-container');
