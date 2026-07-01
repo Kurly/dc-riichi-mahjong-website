@@ -432,7 +432,7 @@
             const now = new Date().toISOString();
             
             // Construct the Google Calendar API URL
-            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=25`;
+            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
 
             try {
                 const response = await fetch(url);
