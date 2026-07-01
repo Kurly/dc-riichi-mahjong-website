@@ -30,7 +30,7 @@
         /* Navigation Base */
         nav {
             background-color: var(--white);
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -40,30 +40,16 @@
             z-index: 1000;
         }
 
-        /* Logo Layout */
-        .logo-left {
+        /* Logo on the Left - Kept original size */
+        .logo {
             display: flex;
             align-items: center;
             z-index: 1001;
         }
 
-        .logo-left img {
-            height: 35px;
+        .logo img {
+            height: 50px; /* Restored/Maintained original size */
             width: auto;
-        }
-
-        .logo-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-            padding: 0 10px;
-        }
-
-        .logo-center img {
-            height: 30px; /* Standard size */
-            width: auto;
-            max-width: 150px; /* Prevent overflow on very small screens */
         }
 
         /* Hamburger Menu Icon */
@@ -215,12 +201,8 @@
 <body>
 
     <nav>
-        <a href="#home" class="logo-left">
-            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB.png" alt="Icon">
-        </a>
-
-        <a href="#home" class="logo-center">
-            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB-TEXT-LONG.png" alt="Text Logo">
+        <a href="#home" class="logo">
+            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB.png" alt="DC Riichi Mahjong Logo">
         </a>
 
         <div class="menu-toggle" id="mobile-menu">
