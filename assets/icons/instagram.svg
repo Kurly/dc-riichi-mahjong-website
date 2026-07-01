@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 169.063 169.063" role="img" aria-labelledby="instagramIconTitle">
+  <title id="instagramIconTitle">Instagram</title>
+  <defs>
+    <linearGradient id="ig-grad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#feda75"/>
+      <stop offset="0.5" stop-color="#d62976"/>
+      <stop offset="1" stop-color="#962fbf"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#ig-grad)" d="M122.406 0H46.657C20.905 0 0 20.906 0 46.657v75.749c0 25.75 20.905 46.657 46.657 46.657h75.749c25.752 0 46.657-20.907 46.657-46.657V46.657C169.063 20.906 148.158 0 122.406 0zM84.531 129.2c-24.72 0-44.75-20.03-44.75-44.75s20.03-44.75 44.75-44.75 44.75 20.03 44.75 44.75-20.03 44.75-44.75 44.75zm52.81-78.3c0 6.17-5 11.17-11.17 11.17-6.17 0-11.17-5-11.17-11.17s5-11.17 11.17-11.17c6.17 0 11.17 5 11.17 11.17z"/>
+  <circle cx="84.531" cy="84.45" r="20.24" fill="#fff" />
+</svg>
