@@ -30,7 +30,7 @@
         /* Navigation Base */
         nav {
             background-color: var(--white);
-            padding: 1rem 2rem;
+            padding: 0.5rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -44,25 +44,26 @@
         .logo-left {
             display: flex;
             align-items: center;
-            z-index: 1001; /* Keeps logo above mobile menu */
+            z-index: 1001;
         }
 
         .logo-left img {
-            height: 40px;
+            height: 35px;
             width: auto;
         }
 
         .logo-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             display: flex;
             align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 0 10px;
         }
 
         .logo-center img {
-            height: 35px;
+            height: 30px; /* Standard size */
             width: auto;
+            max-width: 150px; /* Prevent overflow on very small screens */
         }
 
         /* Hamburger Menu Icon */
@@ -124,7 +125,6 @@
             overflow: hidden;
         }
 
-        /* Hover works on Desktop */
         @media (min-width: 951px) {
             .nav-item:hover .dropdown-menu {
                 display: block;
@@ -146,16 +146,12 @@
 
         /* --- MOBILE RESPONSIVE LAYOUT --- */
         @media (max-width: 950px) {
-            .logo-center {
-                display: none; /* Hide long text on mobile to save space */
-            }
-
             .menu-toggle {
-                display: flex; /* Show hamburger */
+                display: flex;
             }
 
             .nav-links {
-                display: none; /* Hide default nav */
+                display: none;
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
@@ -168,7 +164,7 @@
             }
 
             .nav-links.active {
-                display: flex; /* Show when hamburger is clicked */
+                display: flex;
             }
 
             .nav-item {
@@ -177,181 +173,54 @@
                 border-bottom: 1px solid var(--light-gray);
             }
 
-            .nav-item:last-child {
-                border-bottom: none;
-            }
-
             .nav-item > a {
                 padding: 1rem;
                 display: block;
             }
 
-            /* Mobile Dropdown (Inline Expansion) */
             .dropdown-menu {
                 position: static;
                 box-shadow: none;
                 background-color: var(--light-gray);
-                border-radius: 0;
             }
 
             .nav-item.mobile-dropdown-active .dropdown-menu {
                 display: block;
             }
 
-            /* Hamburger Animation to "X" */
-            .menu-toggle.is-active .bar:nth-child(1) {
-                transform: translateY(9px) rotate(45deg);
-            }
-            .menu-toggle.is-active .bar:nth-child(2) {
-                opacity: 0;
-            }
-            .menu-toggle.is-active .bar:nth-child(3) {
-                transform: translateY(-9px) rotate(-45deg);
-            }
+            .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
         }
 
         /* Layout & Sections */
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .page-section {
-            background-color: var(--white);
-            padding: 2rem 3rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        @media (max-width: 600px) {
-            .page-section {
-                padding: 1.5rem; /* Slightly less padding on very small screens */
-            }
-        }
-
-        .hero {
-            text-align: center;
-        }
-
-        h1, h2, h3 {
-            color: var(--text-dark);
-            margin-top: 0;
-        }
-
-        h2 {
-            border-bottom: 2px solid var(--primary-pink);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        a {
-            color: var(--text-dark);
-            text-decoration: underline;
-            text-decoration-color: var(--primary-pink);
-            text-decoration-thickness: 2px;
-        }
-
-        a:hover {
-            color: var(--primary-pink);
-        }
-
-        /* Image Styling */
-        .section-img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .img-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            background-color: var(--text-dark);
-            color: var(--white);
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-top: 1rem;
-            transition: background-color 0.2s;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-pink);
-            color: var(--text-dark);
-        }
-
-        /* Grids */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--light-gray);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-pink);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            font-size: 1.1rem;
-        }
-
-        ul.perks-list {
-            list-style-type: square;
-            padding-left: 1.5rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--white);
-            margin-top: 3rem;
-        }
-
-        .social-icons {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .social-icons a {
-            text-decoration: none;
-            font-size: 1.5rem;
-        }
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+        .page-section { background-color: var(--white); padding: 2rem 3rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .hero { text-align: center; }
+        h1, h2, h3 { color: var(--text-dark); margin-top: 0; }
+        h2 { border-bottom: 2px solid var(--primary-pink); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        a { color: var(--text-dark); text-decoration: underline; text-decoration-color: var(--primary-pink); text-decoration-thickness: 2px; }
+        a:hover { color: var(--primary-pink); }
+        .section-img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .btn { display: inline-block; background-color: var(--text-dark); color: var(--white); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 1rem; transition: background-color 0.2s; }
+        .btn:hover { background-color: var(--primary-pink); color: var(--text-dark); }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .card { background-color: var(--light-gray); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-pink); }
+        footer { text-align: center; padding: 2rem; background-color: var(--white); margin-top: 3rem; }
+        .social-icons { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="#home" class="logo-left">
-            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB.png" alt="DC Riichi Mahjong Icon">
+            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB.png" alt="Icon">
         </a>
 
         <a href="#home" class="logo-center">
-            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB-TEXT-LONG.png" alt="DC Riichi Mahjong Text Logo">
+            <img src="images/DC-Riichi-Mahjong_Logo_COLOR-RGB-TEXT-LONG.png" alt="Text Logo">
         </a>
 
         <div class="menu-toggle" id="mobile-menu">
@@ -384,174 +253,14 @@
         </ul>
     </nav>
 
-    <div class="container">
-        
-        <div id="home" class="page-section hero">
-            <h1>Welcome to the Club!</h1>
-            <p>DC Riichi Mahjong is a vibrant social club dedicated to fostering the appreciation and enjoyment of Riichi Mahjong, a popular strategic tile-based game hailing from Japan.</p>
-            <p>Known for our friendly atmosphere and diverse community, our members range from beginners to experienced players, all brought together by their shared love of this captivating game.</p>
-            <a href="https://discord.gg/3hQzFadT5t" target="_blank" class="btn">Join Our Discord</a>
-
-            <h2 style="margin-top: 3rem;">Upcoming Events</h2>
-            
-            <div id="events-container" class="events-grid">
-                <p>Loading upcoming events...</p>
-            </div>
-
-        </div>
-
-        <div id="in-person" class="page-section">
-            <h2 id="meetups">Play Mahjong Every Sunday!</h2>
-            <div class="grid-2">
-                <div>
-                    <p>We host a free Riichi Mahjong meet up every Sunday in McLean, Virginia from 12pm - 6pm. We provide all of the equipment to play, but you are more than welcome to bring your own if you have it. If you have never played before, we offer teaching sessions that will take you from zero to hero in just a few hours.</p>
-                    <p><strong>Location:</strong> <a href="https://g.co/kgs/4kPpRNV" target="_blank">Whole Foods Market<br>1635 Boro Pl, McLean, VA 22102</a></p>
-                    <p><em>There are several $5 all day parking garages within 1 block of the Whole Foods. It is also just a 5 minute walk from the Greensboro Silver Line Metro stop.</em></p>
-                </div>
-                <div style="text-align: center;">
-                    <img src="images/inperson1.jpg" alt="Weekly Meetups" class="section-img">
-                </div>
-            </div>
-
-            <div class="grid-2" style="margin-top: 3rem;">
-                <div style="text-align: center;">
-                    <img src="images/inperson2.jpg" alt="Tournaments" class="section-img">
-                </div>
-                <div class="card" id="tournaments">
-                    <h3>Tournaments</h3>
-                    <p>Every spring we host the DC Riichi Mahjong Open (DCO), a two-day tournament open to players of all skill levels.</p>
-                    <p><strong>Upcoming:</strong> <a href="/dco-2026/">DC Riichi Mahjong Open 2026</a></p>
-                    <p><strong>Past Tournaments:</strong></p>
-                    <ul>
-                        <li><a href="/wrl-minor-2025/">WRL Minor 2025</a></li>
-                        <li><a href="/tournaments/dc-open-2025">DC Riichi Mahjong Open 2025</a></li>
-                        <li><a href="/tournaments/dc-open-2024">DC Riichi Mahjong Open 2024</a></li>
-                    </ul>
-                    <a href="https://script.google.com/macros/s/AKfycbxGLyLYOCp5uXHbCM5mVNHUkkQT-Kb3Tj04TpSv2m0TsbhGuAQ1qoMQ0_VPHIsqCtmM0Q/exec?portal=player" target="_blank" class="btn">DC Riichi Mahjong League App</a>
-                </div>
-            </div>
-
-            <div class="grid-2" style="margin-top: 3rem;">
-                <div id="conventions">
-                    <h3>Conventions</h3>
-                    <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a>.</p>
-                    <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a>, <a href="https://animeusa.org/" target="_blank">Anime USA</a>, <a href="https://super.magfest.org/" target="_blank">Super MAGFest</a>.</p>
-                </div>
-                <div style="text-align: center;">
-                    <img src="images/inperson3.jpg" alt="Conventions" class="section-img">
-                </div>
-            </div>
-
-            <div class="grid-2" style="margin-top: 3rem;">
-                <div style="text-align: center;">
-                    <img src="images/inperson4.png" alt="Find a Club" class="section-img">
-                </div>
-                <div id="find-club">
-                    <h3>Find a Club Near You</h3>
-                    <p>Not located in the DC area? There is probably a Riichi Mahjong club near you! Check out the American Riichi Association’s website for a list of clubs in the United States:</p>
-                    <p><a href="https://portal.nariichi.org/clubs" target="_blank">portal.nariichi.org/clubs</a></p>
-                </div>
-            </div>
-        </div>
-
-        <div id="online" class="page-section" style="text-align: center;">
-            <h2>Play Online Whenever You Want!</h2>
-            <p>Riichi Mahjong has several free online clients that let you play at any moment. Here are a few that we recommend:</p>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1rem; margin-bottom: 2rem;">
-                <a href="https://mahjongsoul.yo-star.com/" target="_blank" class="btn">Mahjong Soul</a>
-                <a href="https://www.mahjong-jp.com/" target="_blank" class="btn">Riichi City</a>
-                <a href="https://tenhou.net/" target="_blank" class="btn">Tenhou</a>
-            </div>
-            <img src="images/7D9ZhcVJ.png" alt="Mahjong Soul Interface" class="section-img" style="max-width: 600px;">
-            <p><em>Mahjong Soul</em></p>
-        </div>
-
-        <div id="learn" class="page-section">
-            <h2>Learn To Play</h2>
-            <div class="grid-2">
-                <div id="rules" class="card">
-                    <h3>Rules</h3>
-                    <ul>
-                        <li><a href="https://assets.tina.io/adfa19de-2698-47ef-bf39-234ad9578e0f/New%20player%20yaku%20sheet%202026.png" target="_blank">DC Riichi Mahjong Beginner Sheet</a></li>
-                        <li><a href="https://static1.squarespace.com/static/634a7884c297a25f06589b79/t/6834d67360e19c1da6c0d12c/1748293243651/WRC+Rules+2025.pdf" target="_blank">Full WRC Rules (2025)</a></li>
-                        <li><a href="https://static1.squarespace.com/static/634a7884c297a25f06589b79/t/63c82bff2245392703c3a3cb/1674062885858/WRC_Yaku_1_5_3.pdf" target="_blank">Yaku List</a></li>
-                        <li><a href="https://assets.tina.io/adfa19de-2698-47ef-bf39-234ad9578e0f/score_chart.png" target="_blank">Score Chart</a></li>
-                    </ul>
-                </div>
-                <div id="strategy" class="card">
-                    <h3>Strategy</h3>
-                    <ul>
-                        <li><a href="https://ooyamaneko.net/en/download/download.php?file=/download/mahjong/riichi/Daina_Chiba_-_Riichi_Book_1_en.pdf" target="_blank">Riichi Book 1</a></li>
-                        <li><a href="https://euophrys.itch.io/mahjong-efficiency-trainer" target="_blank">Discard Efficiency Trainer</a></li>
-                        <li><a href="https://mahjong.horneds.com/" target="_blank">Scoring Trainer</a></li>
-                        <li><a href="https://www.youtube.com/@DCRiichiMahjongClub" target="_blank">DCRM Strategy Presentations (YouTube)</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="equipment" style="margin-top: 2rem; text-align: center;">
-                <h3>Equipment Links</h3>
-                <p>
-                    <a href="https://www.ymimports.com/collections/japanese/products/yw-jm001-a" target="_blank">Yellow Mountain Import Mahjong Set</a> | 
-                    <a href="https://www.mjstars.net/product-page/amos-smart" target="_blank">AMOS SMART Set</a> | 
-                    <a href="https://www.amazon.com/Mahjong-mat-junk-japan/dp/B0017KHW3A" target="_blank">Junk Mat (Amazon)</a>
-                </p>
-            </div>
-        </div>
-
-        <div id="membership" class="page-section hero">
-            <h2>Become a DC Riichi Mahjong Member!</h2>
-            <p>Want to support DC Riichi Mahjong and receive exclusive perks? For <strong>$50/year</strong>, members receive an extensive package that includes:</p>
-            
-            <ul class="perks-list" style="text-align: left; display: inline-block; max-width: 600px;">
-                <li>DCRM merchandise (Sticker package, wind chip, pink dice, pink 3D-printed Riichi compass).</li>
-                <li>Riichi City in-game DCRM themed tiles and mat.</li>
-                <li>Access to a monthly members-only online tournament on Riichi City every first Friday of the month.</li>
-                <li>Access to a bimonthly (every two months) strategy lecture.</li>
-                <li>Log reviews from the DC Riichi staff.</li>
-                <li>Free non-tournament entry to the DC Riichi Mahjong Open.</li>
-            </ul>
-            
-            <p><em>(All perks are sent the first week of each month)</em></p>
-            <a href="https://buy.stripe.com/dRmbJ1fD5bgP2LP0fxdQQ06" target="_blank" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem; margin-bottom: 2rem;">Sign Up Now</a>
-
-            <div class="img-grid">
-                <div>
-                    <img src="images/PXL_20250614_163944621.MP.jpg" alt="Merch Perks" class="section-img">
-                    <p><em>Stickers, Compass, Wind Chip, Dice</em></p>
-                </div>
-                <div>
-                    <img src="images/image.png" alt="Riichi City In Game Mat & Tiles" class="section-img">
-                    <p><em>Riichi City In Game Mat & Tiles</em></p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 DC Riichi Mahjong. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="mailto:info@dcriichimahjong.com" target="_blank" title="Email">✉️</a>
-            <a href="https://discord.gg/3hQzFadT5t" target="_blank" title="Discord">💬</a>
-            <a href="https://www.instagram.com/dcriichimahjong/" target="_blank" title="Instagram">📸</a>
-        </div>
-    </footer>
-
     <script>
-        // --- MOBILE MENU FUNCTIONALITY ---
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.querySelector('.nav-links');
-        const navItems = document.querySelectorAll('.nav-item');
-        const closeLinks = document.querySelectorAll('.nav-close');
-
-        // Toggle main menu
         mobileMenu.addEventListener('click', () => {
             mobileMenu.classList.toggle('is-active');
             navLinks.classList.toggle('active');
         });
-
-        // Close menu when clicking a direct link (Home, Play Online, etc)
-        closeLinks.forEach(link => {
+        document.querySelectorAll('.nav-close').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 950) {
                     mobileMenu.classList.remove('is-active');
@@ -559,12 +268,9 @@
                 }
             });
         });
-
-        // Handle Mobile Dropdowns (Expand on tap)
-        navItems.forEach(item => {
+        document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 if (window.innerWidth <= 950 && item.querySelector('.dropdown-menu')) {
-                    // Only toggle if clicking the main category header
                     if (e.target === item.querySelector('a')) {
                         e.preventDefault();
                         item.classList.toggle('mobile-dropdown-active');
@@ -573,60 +279,29 @@
             });
         });
 
-        // --- GOOGLE CALENDAR API SCRIPT ---
+        // Calendar script...
         const API_KEY = 'AIzaSyDRsLC03k5ILWAaefOlj_2q-9OW99CgdJc';
         const CALENDAR_ID = '30f8f2004fa338915dd4798b4307f8ec48f9b150ee3d5fbc10b3506b50e62979@group.calendar.google.com'; 
-
         async function fetchEvents() {
             const container = document.getElementById('events-container');
-            
-            if (API_KEY === 'YOUR_API_KEY_HERE') {
-                container.innerHTML = '<p><em>Please enter your Google API Key in the HTML code to view upcoming events.</em></p>';
-                return;
-            }
-
-            // Get current time to only show future events
             const now = new Date().toISOString();
-            
-            // Construct the Google Calendar API URL (fetches the next 4 events)
             const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
-
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-
                 if (data.items && data.items.length > 0) {
-                    container.innerHTML = ''; // Clear the "Loading..." text
-                    
+                    container.innerHTML = '';
                     data.items.forEach(event => {
-                        // Format the date nicely
                         const eventDate = new Date(event.start.dateTime || event.start.date);
-                        const dateString = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                        const timeString = event.start.dateTime ? eventDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'All Day';
-                        const location = event.location ? event.location : 'Location TBD';
-
-                        // Create the event card HTML
                         const card = document.createElement('div');
                         card.className = 'card';
-                        card.innerHTML = `
-                            <h3>${event.summary}</h3>
-                            <p><strong>Date:</strong> ${dateString}<br><strong>Time:</strong> ${timeString}</p>
-                            <p><strong>Location:</strong> ${location}</p>
-                        `;
+                        card.innerHTML = `<h3>${event.summary}</h3><p><strong>Date:</strong> ${eventDate.toLocaleDateString()}</p>`;
                         container.appendChild(card);
                     });
-                } else {
-                    container.innerHTML = '<p>No upcoming events found. Check back later!</p>';
                 }
-            } catch (error) {
-                container.innerHTML = '<p>Error loading events. Please check the calendar connection.</p>';
-                console.error('Error fetching Google Calendar events:', error);
-            }
+            } catch (error) { console.error(error); }
         }
-
-        // Run the function when the page loads
         document.addEventListener('DOMContentLoaded', fetchEvents);
     </script>
-
 </body>
 </html>
