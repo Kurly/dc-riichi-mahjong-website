@@ -198,6 +198,7 @@
         footer { text-align: center; padding: 2rem; background-color: var(--white); margin-top: 3rem; }
         .social-icons { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; }
         .social-icons a { text-decoration: none; font-size: 1.5rem; }
+        .social-icons img { height: 24px; width: auto; display: inline-block; }
         
         /* Event Description Styling */
         .event-description {
@@ -288,8 +289,8 @@
             <div class="grid-2" style="margin-top: 3rem;">
                 <div class="card" id="conventions">
                     <h3>Conventions</h3>
-                    <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a>.</p>
-                    <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a>, <a href="https://www.magfest.org/" target="_blank">MAGFest</a></p>
+                    <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a></p>
+                    <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a></p>
                 </div>
                 <div style="text-align: center;">
                     <img src="images/inperson3.jpg" alt="Conventions" class="section-img">
@@ -385,8 +386,8 @@
         <p>&copy; 2026 DC Riichi Mahjong. All rights reserved.</p>
         <div class="social-icons">
             <a href="mailto:info@dcriichimahjong.com" target="_blank" title="Email">✉️</a>
-            <a href="https://discord.gg/3hQzFadT5t" target="_blank" title="Discord">💬</a>
-            <a href="https://www.instagram.com/dcriichimahjong/" target="_blank" title="Instagram">📸</a>
+            <a href="https://discord.gg/3hQzFadT5t" target="_blank" title="Discord"><img src="images/discord-icon-blue-discord-logo-for-chatting-and-communication-RA6Qd2f8_t.jpg" alt="Discord"></a>
+            <a href="https://www.instagram.com/dcriichimahjong/" target="_blank" title="Instagram"><img src="images/instagram-vector-logo-icon-social-media-logotype_901408-392.avif" alt="Instagram"></a>
         </div>
     </footer>
 
@@ -427,7 +428,7 @@
             const now = new Date().toISOString();
             
             // Construct the Google Calendar API URL
-            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
+            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=25`;
 
             try {
                 const response = await fetch(url);
