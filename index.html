@@ -437,7 +437,7 @@
             if (!container) return;
 
             const now = new Date().toISOString();
-            const maxResults = 10;
+            const maxResults = 4;
             const base = 'https://www.googleapis.com/calendar/v3/calendars/';
             const url = `${base}${encodeURIComponent(calendarId)}/events?key=${encodeURIComponent(DCRM_CONFIG.API_KEY)}&timeMin=${encodeURIComponent(now)}&singleEvents=true&orderBy=startTime&maxResults=${maxResults}`;
 
