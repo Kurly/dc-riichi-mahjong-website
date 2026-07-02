@@ -189,7 +189,7 @@
         a:hover { color: var(--primary-pink); }
         .section-img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .btn { display: inline-block; background-color: var(--text-dark); color: var(--white); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 1rem; }
+        .btn { display: inline-block; background-color: var(--text-dark); color: var(--white); padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 1rem; transition: background-color 0.2s ease, color 0.2s ease; }
         .btn:hover { background-color: var(--primary-pink); color: var(--text-dark); }
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center; }
         .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; text-align: left; }
@@ -293,7 +293,7 @@
             <div class="grid-2" style="margin-top: 3rem;">
                 <div class="card" id="conventions">
                     <h3>Conventions</h3>
-                    <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a></p>
+                    <p>We partner with local conventions to offer lessons and free play. If you want Riichi Mahjong at your event, email us at <a href="mailto:events@dcriichimahjong.com">events@dcriichimahjong.com</a>.</p>
                     <p><strong>Past Conventions:</strong> <a href="https://sakuramatsuri.org/" target="_blank">Sakura Matsuri</a>, <a href="https://www.otakon.com/" target="_blank">Otakon</a></p>
                 </div>
                 <div style="text-align: center;">
@@ -352,6 +352,7 @@
                         <li><a href="https://www.ymimports.com/collections/japanese/products/yw-jm001-a" target="_blank">Yellow Mountain Import Mahjong Set</a></li>
                         <li><a href="https://www.mjstars.net/product-page/amos-smart" target="_blank">AMOS SMART Set</a></li>
                         <li><a href="https://www.amazon.com/Mahjong-mat-junk-japan/dp/B0017KHW3A" target="_blank">Junk Mat (Amazon)</a></li>
+                    </ul>
                 </div> 
             </div>
         </div>
@@ -436,28 +437,30 @@
             if (!container) return;
 
             const now = new Date().toISOString();
-            
-            // Construct the Google Calendar API URL
-            const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${DCRM_CONFIG.API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=4`;
+            const maxResults = 10;
+            const base = 'https://www.googleapis.com/calendar/v3/calendars/';
+            const url = `${base}${encodeURIComponent(calendarId)}/events?key=${encodeURIComponent(DCRM_CONFIG.API_KEY)}&timeMin=${encodeURIComponent(now)}&singleEvents=true&orderBy=startTime&maxResults=${maxResults}`;
 
             try {
                 const response = await fetch(url);
+                if (!response.ok) throw new Error(`Calendar API HTTP ${response.status}`);
                 const data = await response.json();
                 
                 if (data.items && data.items.length > 0) {
                     container.innerHTML = ''; // Clear the "Loading..." text
                     
                     data.items.forEach(e => {
-                        const start = e.start.dateTime ? new Date(e.start.dateTime) : new Date(e.start.date);
-                        const end = e.end && (e.end.dateTime || e.end.date) ? new Date(e.end.dateTime || e.end.date) : null;
+                        const start = e.start && e.start.dateTime ? new Date(e.start.dateTime) : (e.start && e.start.date ? new Date(e.start.date) : null);
+                        const endRaw = e.end && (e.end.dateTime || e.end.date) ? (e.end.dateTime || e.end.date) : null;
+                        const end = endRaw ? new Date(endRaw) : null;
 
                         // Build date and time strings, showing end time when available
-                        let dateString = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                        let dateString = start ? start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
                         const timeOptions = { hour: 'numeric', minute: '2-digit' };
-                        let timeString = e.start.dateTime ? start.toLocaleTimeString('en-US', timeOptions) : 'All Day';
+                        let timeString = start && e.start && e.start.dateTime ? start.toLocaleTimeString('en-US', timeOptions) : 'All Day';
 
                         if (end) {
-                            if (e.start.dateTime && e.end.dateTime) {
+                            if (e.start && e.start.dateTime && e.end && e.end.dateTime) {
                                 // Timed event
                                 if (start.toDateString() === end.toDateString()) {
                                     // Same day: show start — end times
@@ -469,7 +472,7 @@
                                 }
                             } else {
                                 // All-day event (date only). If it spans multiple days, show the date range.
-                                if (start.toDateString() !== end.toDateString()) {
+                                if (start && start.toDateString() !== end.toDateString()) {
                                     // Note: Google Calendar uses exclusive end dates for all-day events; subtract one day for display if needed.
                                     const adjustedEnd = new Date(end);
                                     // If end's time is 00:00:00, it's likely the exclusive end; subtract a day to show the inclusive last date.
@@ -490,10 +493,10 @@
                         const card = document.createElement('div');
                         card.className = 'card';
                         card.innerHTML = `
-                            <h3>${e.summary}</h3>
-                            <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${dateTimeDisplay}</p>
-                            <p style="margin-top: 0; margin-bottom: 1rem;"><strong>Location:</strong> ${location}</p>
-                            <div class="event-description">${description}</div>
+                            <h3>${escapeHtml(e.summary || 'Untitled event')}</h3>
+                            <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${escapeHtml(dateTimeDisplay)}</p>
+                            <p style="margin-top: 0; margin-bottom: 1rem;"><strong>Location:</strong> ${escapeHtml(location)}</p>
+                            <div class="event-description">${escapeHtml(description)}</div>
                         `;
                         container.appendChild(card);
                     });
@@ -502,14 +505,30 @@
                 }
             } catch (error) {
                 container.innerHTML = '<p>Error loading events. Please check the calendar connection.</p>';
+                console.error('Calendar fetch error:', error);
             }
         }
         
         // Fetch both calendars on page load
         document.addEventListener('DOMContentLoaded', () => {
-            fetchCalendarEvents(DCRM_CONFIG.WEEKLY_CALENDAR_ID, 'weekly-events-container');
-            fetchCalendarEvents(DCRM_CONFIG.ONEOFF_CALENDAR_ID, 'oneoff-events-container');
+            if (typeof DCRM_CONFIG !== 'undefined') {
+                fetchCalendarEvents(DCRM_CONFIG.WEEKLY_CALENDAR_ID, 'weekly-events-container');
+                fetchCalendarEvents(DCRM_CONFIG.ONEOFF_CALENDAR_ID, 'oneoff-events-container');
+            } else {
+                console.warn('DCRM_CONFIG is not defined. Please provide config.js with the required values.');
+            }
         });
+
+        // small helper to avoid inserting raw HTML
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
     </script>
 </body>
 </html>
