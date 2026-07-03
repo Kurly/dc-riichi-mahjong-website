@@ -532,33 +532,22 @@
         function escapeHtmlAndPreserveLinks(str) {
             if (!str) return '';
             
-            // First, escape all HTML
-            let escaped = String(str)
+            // Just convert URLs to links and escape everything else
+            let result = String(str)
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-            
-            // Find URLs and convert them back to clickable links
-            escaped = escaped.replace(
-                /(\bhttps?:\/\/[^\s<>&]*|www\.[^\s<>&]*)/g,
-                (match) => {
-                    // Check if this URL is already inside an anchor tag (look for &lt;a before it)
-                    const anchorStart = escaped.lastIndexOf('&lt;a', escaped.indexOf(match));
-                    const anchorEnd = escaped.indexOf('&lt;/a&gt;', escaped.indexOf(match));
-                    
-                    if (anchorStart !== -1 && anchorEnd !== -1 && anchorStart < escaped.indexOf(match) && escaped.indexOf(match) < anchorEnd) {
-                        // URL is already inside an anchor tag, don't wrap it again
-                        return match;
+                .replace(/'/g, '&#39;')
+                .replace(
+                    /(\bhttps?:\/\/[^\s&]*|www\.[^\s&]*)/g,
+                    (match) => {
+                        const url = match.startsWith('www.') ? 'https://' + match : match;
+                        return `<a href="${url}" target="_blank">${url}</a>`;
                     }
-                    
-                    const url = match.startsWith('www.') ? 'https://' + match : match;
-                    return `<a href="${url}" target="_blank">${match}</a>`;
-                }
-            );
+                );
             
-            return escaped;
+            return result;
         }
     </script>
 </body>
