@@ -540,13 +540,19 @@
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#39;');
             
-            // Then, find URLs and convert them back to clickable links
+            // Find URLs and convert them back to clickable links
             escaped = escaped.replace(
                 /(\bhttps?:\/\/[^\s<>&]*|www\.[^\s<>&]*)/g,
                 (match) => {
-                    if (match.includes('&lt;a')) {
+                    // Check if this URL is already inside an anchor tag (look for &lt;a before it)
+                    const anchorStart = escaped.lastIndexOf('&lt;a', escaped.indexOf(match));
+                    const anchorEnd = escaped.indexOf('&lt;/a&gt;', escaped.indexOf(match));
+                    
+                    if (anchorStart !== -1 && anchorEnd !== -1 && anchorStart < escaped.indexOf(match) && escaped.indexOf(match) < anchorEnd) {
+                        // URL is already inside an anchor tag, don't wrap it again
                         return match;
                     }
+                    
                     const url = match.startsWith('www.') ? 'https://' + match : match;
                     return `<a href="${url}" target="_blank">${match}</a>`;
                 }
