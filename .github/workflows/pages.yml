@@ -1,6 +1,0 @@
-- name: Upload Pages artifact
-  uses: actions/upload-pages-artifact@v3
-  with:
-    # Point this to the specific directory containing your site files (e.g., 'dist', 'build', or '.')
-    # This ensures the files are packaged at the root of the artifact.
-    path: '.'
