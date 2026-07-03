@@ -496,7 +496,7 @@
                             <h3>${escapeHtml(e.summary || 'Untitled event')}</h3>
                             <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${escapeHtml(dateTimeDisplay)}</p>
                             <p style="margin-top: 0; margin-bottom: 1rem;"><strong>Location:</strong> ${escapeHtml(location)}</p>
-                            <div class="event-description">${escapeHtml(description)}</div>
+                            <div class="event-description">${escapeHtmlAndPreserveLinks(description)}</div>
                         `;
                         container.appendChild(card);
                     });
@@ -528,6 +528,31 @@
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#39;');
+        }
+        function escapeHtmlAndPreserveLinks(str) {
+            if (!str) return '';
+            
+            // First, escape all HTML
+            let escaped = String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+            
+            // Then, find URLs and convert them back to clickable links
+            escaped = escaped.replace(
+                /(\bhttps?:\/\/[^\s<>&]*|www\.[^\s<>&]*)/g,
+                (match) => {
+                    if (match.includes('&lt;a')) {
+                        return match;
+                    }
+                    const url = match.startsWith('www.') ? 'https://' + match : match;
+                    return `<a href="${url}" target="_blank">${match}</a>`;
+                }
+            );
+            
+            return escaped;
         }
     </script>
 </body>
