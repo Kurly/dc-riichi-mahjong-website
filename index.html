@@ -264,7 +264,23 @@
         </div>
 
         <div id="in-person" class="page-section hero" style="text-align: center;">
-            <h2>Weekly Meetups</h2>
+            <h2>Play Every Sunday Afternoon</h2>
+             <div class="grid-2" style="margin-top: 3rem;">
+                <div style="text-align: center;">
+                    <strong>1625 Boro Pl, McLean, VA 22102</strong>
+                    <p>Next to the Greensboro Silver Line Metro Station</p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d49651.08176478033!2d-77.24683775028222!3d38.942427940593575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWhole%20Foods%20Market!5e0!3m2!1sen!2sus!4v1783175720939!5m2!1sen!2sus" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+                <div class="card" id="sunday">
+                    <h3>Whole Foods Market</h3>
+                    <strong>12pm - 6pm</strong>
+                    <p>2nd Floor. No entry fee to play, but we encourage you to buy something in the Whole Foods. Plenty of $5/day parking garages next the Whole Foods.</p>
+                    <a href="https://script.google.com/macros/s/AKfycbxGLyLYOCp5uXHbCM5mVNHUkkQT-Kb3Tj04TpSv2m0TsbhGuAQ1qoMQ0_VPHIsqCtmM0Q/exec?portal=player" target="_blank" class="btn">DC Riichi Mahjong League App</a>
+                    
+                   
+                </div>
+            </div>
+            <h2>Other Mahjong Meetups</h2>
             
             <div id="weekly-events-container" class="events-grid">
                 <p>Loading weekly events...</p>
@@ -431,7 +447,7 @@
         });
 
         // Function to fetch events from a specific calendar
-        async function fetchCalendarEvents(calendarId, containerId) {
+async function fetchCalendarEvents(calendarId, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
 
@@ -484,7 +500,9 @@
                             }
                         }
 
-                        const location = e.location ? e.location : 'Location TBD';
+                        const locationDisplay = e.location 
+                            ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.location)}" target="_blank">${escapeHtml(e.location)}</a>` 
+                            : 'Location TBD';
                         const description = e.description ? e.description : 'No description provided.';
                         const dateTimeDisplay = timeString === 'All Day' ? `${dateString} (All Day)` : `${dateString} at ${timeString}`;
                         
@@ -494,7 +512,7 @@
                         card.innerHTML = `
                             <h3>${escapeHtml(e.summary || 'Untitled event')}</h3>
                             <p style="margin-bottom: 0.5rem;"><strong>Date:</strong> ${escapeHtml(dateTimeDisplay)}</p>
-                            <p style="margin-top: 0; margin-bottom: 1rem;"><strong>Location:</strong> ${escapeHtml(location)}</p>
+                            <p style="margin-top: 0; margin-bottom: 1rem;"><strong>Location:</strong> ${locationDisplay}</p>
                             <div class="event-description">${escapeHtmlAndPreserveLinks(description)}</div>
                         `;
                         container.appendChild(card);
